@@ -3,15 +3,79 @@
     <ion-title>
       Tab 1
     </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button >
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">Il Castello della Follia</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-grid>
+
+    <ion-row>
+      <ion-col size="6" offset="1">
+        <ion-card>
+          <div style="text-align: center;">
+          <img src={{img}} style="max-width: 75%;">
+          </div>
+          <ion-card-header>
+            <ion-card-subtitle>Nome</ion-card-subtitle>
+            <ion-card-title>{{user.NomePG}} {{user.CognomePG}}</ion-card-title>
+            <ion-card-subtitle>Data di Nascita</ion-card-subtitle>
+            <ion-card-title>{{user.gg}}/{{user.mm}}/{{user.aaaa}}</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+        <!--<img [src]="img" > -->
+      </ion-col>
+      <ion-col size="4" offset="0">
+        <ion-grid padding=1>
+          <ion-row >
+            <ion-col>
+              <ion-item>
+              <ion-label>Sanità</ion-label>
+              <ion-badge >{{user.Sanita}}</ion-badge>
+            </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+              <ion-label>Miti</ion-label>
+              <ion-badge >{{user.Miti}}</ion-badge>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+              <ion-label>PF</ion-label>
+              <ion-badge >{{user.PF}}</ion-badge>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>Professione</ion-card-subtitle>
+          <ion-card-title>{{user.nomeprofessione}}</ion-card-title>
+          <ion-card-subtitle>{{user.nomespecial}}</ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+      </ion-col>
+    </ion-row>
+ 
+  </ion-grid>
 </ion-content>

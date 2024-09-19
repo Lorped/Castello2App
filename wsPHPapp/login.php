@@ -37,8 +37,8 @@ if (isset($postdata) && $email != "" && $password !="" ) {
 
 
   $MySql = "SELECT IDutente FROM utenti WHERE email = '".addslashes($email)."' AND password = '".addslashes($password)."'";
-    $Result = mysql_query($MySql);
-  if ( $res = mysql_fetch_array($Result)   ) {
+    $Result = mysqli_query($db, $MySql);
+  if ( $res = mysqli_fetch_array($Result)   ) {
 
     $IDutente = $res['IDutente'];
 
@@ -49,8 +49,8 @@ if (isset($postdata) && $email != "" && $password !="" ) {
       LEFT JOIN xspec ON personaggi.xspecpg = xspec.IDspecialx
       WHERE IDutente = '$IDutente' ";
 
-    $Result = mysql_query($MySql);
-    if ( $res = mysql_fetch_array($Result,MYSQL_ASSOC)   ) {
+    $Result = mysqli_query($db, $MySql);
+    if ( $res = mysqli_fetch_array($Result,MYSQLI_ASSOC)   ) {
 
       $newout = [
         "status" => 'success' ,
