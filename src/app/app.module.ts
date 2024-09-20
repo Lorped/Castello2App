@@ -9,12 +9,15 @@ import { AppComponent } from './app.component';
 
 
 
-import { User } from './global';
+import { User, Oggetto, Status } from './global';
 
 import { provideHttpClient } from '@angular/common/http';
 
+
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,
+  ],
   imports: [
     BrowserModule, 
     IonicModule.forRoot(), 
@@ -23,7 +26,9 @@ import { provideHttpClient } from '@angular/common/http';
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, 
     User,
-    provideHttpClient() 
+    Oggetto,
+    Status,
+    provideHttpClient(),
   ],
   bootstrap: [AppComponent],
 })

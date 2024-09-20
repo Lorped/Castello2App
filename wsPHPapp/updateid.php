@@ -31,7 +31,7 @@ $id=$_GET['id'];
 $userid=$_GET['userid'];
 
 $MySql = "UPDATE personaggi SET registrationID='$id' WHERE IDutente=$userid" ;
-$Result = mysql_query($MySql);
+$Result = mysqli_query($db, $MySql);
 
 
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { User } from '../global';
+import { Status, User } from '../global';
 import { Router } from '@angular/router';
 
 @Component({
@@ -21,14 +21,14 @@ export class LoginPage implements OnInit {
 
     
 
-  constructor(public userservice: UserService, private user: User, public router: Router) { }
+  constructor(public userservice: UserService, private user: User, public router: Router, public status: Status) { }
 
   ngOnInit() {
     var ee = window.localStorage.getItem( "castellouserid" ) ! ;
     var pp = window.localStorage.getItem( "castellopassword" ) ! ;
     this.login.controls.email.setValue(ee);
     this.login.controls.password.setValue(pp);
-    console.log(ee);
+    //console.log(ee);
     
     if (ee != null )  { 
       this.login.controls.checked.setValue(true); 
@@ -38,8 +38,8 @@ export class LoginPage implements OnInit {
 
   doLogin(){
 
-    console.log (this.login);
-    console.log (this.login.controls.checked.value);
+    //console.log (this.login);
+    //console.log (this.login.controls.checked.value);
 
     this.userservice.login(this.login.controls.email.value !, this.login.controls.password.value !).subscribe(
       (resp) => {
@@ -75,7 +75,10 @@ export class LoginPage implements OnInit {
         this.user.xspecpg = resp.user.xspecpg;
         
 
-        console.log("user: ", this.user);
+        //console.log("user: ", this.user);
+        this.status.generico = false;
+        this.status.magie = false;
+
 
         this.router.navigate(['tabs']);
 

@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UserService {
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient, public user: User) { }
 
   login(email: string, password: string) {
     return this.http.post<any>('https://www.roma-by-night.it/Castello/wsPHPapp/login.php', {
@@ -15,4 +15,13 @@ export class UserService {
       password: password
     });
   }
+
+  scanoggetto(barcode: string) {
+    return this.http.get<any>('https://www.roma-by-night.it/Castello/wsPHPapp/scanoggetti.php?IDutente=' + this.user.IDutente + '&scan=' + barcode);
+  }
+
+  scanmagia(barcode: string) {
+    return this.http.get<any>('https://www.roma-by-night.it/Castello/wsPHPapp/scanmagia.php?IDutente=' + this.user.IDutente + '&scan=' + barcode);
+  }
+
 }

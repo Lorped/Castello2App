@@ -1,0 +1,63 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>{{newoggetto.nome}}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    {{newoggetto.descrizione}}
+  </ion-card-content>
+</ion-card>
+
+<ion-card *ngIf="newoggetto.descrizione1 != ''">
+  <ion-card-header>
+    <ion-card-subtitle>({{user.nomeprofessione}})</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    {{newoggetto.descrizione1}}
+  </ion-card-content>
+</ion-card>
+
+
+<ion-card *ngIf="newoggetto.descrizione2 != ''">
+  <ion-card-header>
+    <ion-card-subtitle>({{user.nomespecial}})</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    {{newoggetto.descrizione2}}
+  </ion-card-content>
+</ion-card>
+
+<ion-card *ngIf="newoggetto.descrizione3 != ''">
+  <ion-card-header>
+    <ion-card-subtitle>({{user.descbp}})</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    {{newoggetto.descrizione3}}
+  </ion-card-content>
+</ion-card>
+
+<ion-card *ngIf="newoggetto.descrizione4 != ''">
+  <ion-card-header>
+    <ion-card-title>PAIRED</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    {{newoggetto.descrizione3}}
+  </ion-card-content>
+</ion-card>
+
+<ion-card *ngIf="newoggetto.deltamiti!=0 || newoggetto.deltasan!=0 || newoggetto.deltapf!=0">
+  <ion-card-header *ngIf="newoggetto.deltasan!=0">
+    <ion-card-title>SAN {{newoggetto.deltasan}}</ion-card-title>
+  </ion-card-header>
+  <ion-card-header *ngIf="newoggetto.deltamiti!=0">
+    <ion-card-title>MITI {{newoggetto.deltamiti}}</ion-card-title>
+  </ion-card-header>
+  <ion-card-header *ngIf="newoggetto.deltapf!=0">
+    <ion-card-title>PF {{newoggetto.deltapf}}</ion-card-title>
+  </ion-card-header>
+</ion-card>
+
+<ion-row>
+<ion-col class="alc">
+  <ion-button color="primary" (click)="dismiss()">Chiudi</ion-button>
+</ion-col>
+</ion-row>

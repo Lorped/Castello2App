@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../global';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab1',
@@ -10,10 +11,10 @@ export class Tab1Page implements OnInit {
 
   img = '';
 
-  constructor(public user: User) { }
+  constructor(public user: User, public router: Router) { }
 
   ngOnInit() {
-    console.log("user tab1", this.user);
+    //console.log("user tab1", this.user);
 
     if (this.user.URLimg != "nopicture.gif") {
       this.img = "https://www.roma-by-night.it/Castello/assets/" + this.user.URLimg;
@@ -22,6 +23,10 @@ export class Tab1Page implements OnInit {
     }
 
   
+  }
+
+  logout(){
+    this.router.navigate(['login']);
   }
 
 }

@@ -42,11 +42,11 @@ if ($scan != "" && $IDutente != "") {
 
 
   $MySql = "SELECT * FROM magie WHERE scan = '$scan' ";
-  $Result = mysql_query($MySql);
-  if ( $res = mysql_fetch_array($Result)   ) {
+  $Result = mysqli_query($MySql);
+  if ( $res = mysqli_fetch_array($Result)   ) {
 
     $IDmagia = $res['IDmagia'];
-    $nome = mysql_real_escape_string( $res['nome']);
+    $nome = mysqli_real_escape_string( $res['nome']);
     $descrizione = $res['descrizione'];
 
     $deltasan = $res['basesan'];
@@ -54,9 +54,9 @@ if ($scan != "" && $IDutente != "") {
     $deltapf = $res['basepf'];
 
     $MySql2 = "SELECT * FROM personaggi  WHERE IDutente=$IDutente" ;
-    $Result2=mysql_query($MySql2);
-    $res2=mysql_fetch_array($Result2);
-    if (mysql_errno())  die ( mysql_errno().": ".mysql_error()."+". $MySql2 );
+    $Result2=mysqli_query($MySql2);
+    $res2=mysqli_fetch_array($Result2);
+    if (mysqli_errno($db))  die ( mysqli_errno($db).": ".mysqli_error($db)."+". $MySql2 );
 
     $oldsan=$res2['Sanita'];
     $oldmiti=$res2['Miti'];
@@ -88,12 +88,12 @@ if ($scan != "" && $IDutente != "") {
     if ($newpf < 0) {$newpf=0; }
 
     $MySql9 = "UPDATE personaggi SET Sanita = $newsan  , Miti = $newmiti , pf = $newpf WHERE IDutente=$IDutente" ;
-    mysql_query($MySql9);
-    if (mysql_errno())  die ( mysql_errno().": ".mysql_error()."+". $MySql9 );
+    mysqli_query($db, $MySql9);
+    if (mysqli_errno($db))  die ( mysqli_errno($db).": ".mysqli_error($db)."+". $MySql9 );
 
     $MySql3 = "INSERT INTO logmagia (IDmagia, IDutente, DescEstesa ) VALUES ($IDmagia, $IDutente , '$nome') ";
-    $Result3 = mysql_query($MySql3);
-    if (mysql_errno())  die ( mysql_errno().": ".mysql_error()."+". $MySql3 );
+    $Result3 = mysqli_query($db, $MySql3);
+    if (mysqli_errno($db))  die ( mysqli_errno($db).": ".mysqli_error($db)."+". $MySql3 );
 
     $output = json_encode("OK");
     echo $output;

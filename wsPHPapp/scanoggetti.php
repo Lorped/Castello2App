@@ -30,10 +30,12 @@ $scan = $request->scan;
 */
 
 $IDutente = $_GET['IDutente'];
-$IDprofessione = $_GET['IDprofessione'];
-$IDspecial = $_GET['IDspecial'];
-$IDbp = $_GET['IDbp'];
+
 $scan = $_GET['scan'];
+
+// $IDprofessione = $_GET['IDprofessione'];
+// $IDspecial = $_GET['IDspecial'];
+// $IDbp = $_GET['IDbp'];
 
 /*
 $postdata = '1';
@@ -52,26 +54,41 @@ $deltapf=0;
 
 $firsttime=0;
 
-if ( $IDutente != "" && $scan !="" && $IDprofessione != ""  && $IDspecial != ""  && $IDbp != "" ) {
+if ( $IDutente != "" && $scan !=""  ) {
 
   include ('../wsPHP/db.inc.php');
 
+  $MySql = "SELECT * from personaggi WHERE IDutente='$IDutente'";
+  $Result = mysqli_query($db, $MySql);
+  if ( $res = mysqli_fetch_array($Result)   ) {
+    $IDprofessione = $res['IDprofessione'];
+    $IDspecial = $res['IDspecial'];
+    $IDbp = $res['IDbp'];
+
+  }
+
+  $descrizione = '' ;   //BASE
+  $descrizione1 = '' ;   //PROFESSIONE
+  $descrizione2 = '' ;   //SPECIAL
+  $descrizione3 = '' ;   //IDBP
+  $descrizione4 = '' ;   //PAIRED
+
 
   $MySql = "SELECT * FROM oggetti WHERE scan = $scan ";
-  $Result = mysql_query($MySql);
-  if ( $res = mysql_fetch_array($Result)   ) {
+  $Result = mysqli_query($db, $MySql);
+  if ( $res = mysqli_fetch_array($Result)   ) {
 
     $IDoggetto = $res['IDoggetto'];
     $nome = $res['nome'];
     $descrizione = $res['descrizione'];
 
     $MySql2 = "SELECT *  FROM logscan WHERE IDoggetto = $IDoggetto AND IDutente = $IDutente ";
-    $Result2 = mysql_query($MySql2);
+    $Result2 = mysqli_query($db, $MySql2);
 
-    if ( $res2 = mysql_fetch_array($Result2)   ) {
+    if ( $res2 = mysqli_fetch_array($Result2)   ) {
       //già scannerizzato aggiorno OutOfRangeException
       $MySql3 = "UPDATE logscan SET data = NOW() WHERE IDoggetto = $IDoggetto AND IDutente = $IDutente";
-      $Result3 = mysql_query($MySql3);
+      $Result3 = mysqli_query($db, $MySql3);
     } else {
       // prima volta: inserisco + applico effetti
 
@@ -87,11 +104,11 @@ if ( $IDutente != "" && $scan !="" && $IDprofessione != ""  && $IDspecial != "" 
     //cerco descrizione estesa basata su IDprofessione
 
     $MySql4 = "SELECT *  FROM effetti WHERE IDoggetto = $IDoggetto AND IDprofessione = $IDprofessione ";
-    $Result4 = mysql_query($MySql4);
+    $Result4 = mysqli_query($db, $MySql4);
 
-    if ( $res4 = mysql_fetch_array($Result4) ) {
+    if ( $res4 = mysqli_fetch_array($Result4) ) {
 
-      $descrizione = $descrizione . ' ' . $res4['descrizione'];
+      $descrizione1 = $res4['descrizione'];
 
       if ($firsttime==1) {
         $deltasan = $deltasan + $res4['effettosan'];
@@ -103,11 +120,11 @@ if ( $IDutente != "" && $scan !="" && $IDprofessione != ""  && $IDspecial != "" 
     //cerco descrizione estesa basata su IDspecial
 
     $MySql4 = "SELECT *  FROM effetti WHERE IDoggetto = $IDoggetto AND IDspecial = $IDspecial ";
-    $Result4 = mysql_query($MySql4);
+    $Result4 = mysqli_query($db, $MySql4);
 
-    if ( $res4 = mysql_fetch_array($Result4) ) {
+    if ( $res4 = mysqli_fetch_array($Result4) ) {
 
-      $descrizione = $descrizione . ' ' . $res4['descrizione'];
+      $descrizione2 =  $res4['descrizione'];
 
       if ($firsttime==1) {
         $deltasan = $deltasan + $res4['effettosan'];
@@ -119,11 +136,11 @@ if ( $IDutente != "" && $scan !="" && $IDprofessione != ""  && $IDspecial != "" 
     //cerco descrizione estesa basata su IDbp
 
     $MySql4 = "SELECT *  FROM effetti WHERE IDoggetto = $IDoggetto AND IDbp = $IDbp ";
-    $Result4 = mysql_query($MySql4);
+    $Result4 = mysqli_query($db, $MySql4);
 
-    if ( $res4 = mysql_fetch_array($Result4) ) {
+    if ( $res4 = mysqli_fetch_array($Result4) ) {
 
-      $descrizione = $descrizione . ' ' . $res4['descrizione'];
+      $descrizione3 = $res4['descrizione'];
 
       if ($firsttime==1) {
         $deltasan = $deltasan + $res4['effettosan'];
@@ -136,14 +153,14 @@ if ( $IDutente != "" && $scan !="" && $IDprofessione != ""  && $IDspecial != "" 
 
 
     if ( $firsttime==1 ) {
-      $DE = mysql_real_escape_string($descrizione);
+      $DE = mysqli_real_escape_string($db, $descrizione);
       $MySql3 = "INSERT INTO logscan (IDoggetto, IDutente, DescEstesa ) VALUES ($IDoggetto, $IDutente , '$DE') ";
-      $Result3 = mysql_query($MySql3);
+      $Result3 = mysqli_query($db, $MySql3);
     }
 
     $MySql5 = "SELECT * FROM paired WHERE IDoggetto1 = $IDoggetto OR IDoggetto2 = $IDoggetto ";
-    $Result5 = mysql_query($MySql5);
-    if ( $res5 = mysql_fetch_array($Result5) ) {
+    $Result5 = mysqli_query($db, $MySql5);
+    if ( $res5 = mysqli_fetch_array($Result5) ) {
 
       // esiste un "paired"
 
@@ -154,22 +171,22 @@ if ( $IDutente != "" && $scan !="" && $IDprofessione != ""  && $IDspecial != "" 
 
       $MySql6 = "SELECT * FROM logscan WHERE
         IDoggetto = $newoggetto AND IDutente = $IDutente AND DATE_ADD(logscan.data, INTERVAL 3 MINUTE) > NOW() ";
-      $Result6 = mysql_query($MySql6);
-      if ( $res6 = mysql_fetch_array($Result6) ) {
+      $Result6 = mysqli_query($db, $MySql6);
+      if ( $res6 = mysqli_fetch_array($Result6) ) {
         // ok paired
-        $descrizione = $descrizione . ' ' . $res5['pdescrizione'];
+        $descrizione4 =  $res5['pdescrizione'];
 
         $MySql7 = "SELECT * FROM logpaired WHERE IDutente=$IDutente AND
          ( ( IDoggetto1 = $IDoggetto AND IDoggetto2 = $newoggetto) OR
            ( IDoggetto2 = $IDoggetto AND IDoggetto1 = $newoggetto) ) ";
-        $Result7 = mysql_query($MySql7);
-        if ( $res7 = mysql_fetch_array($Result7) ) {
+        $Result7 = mysqli_query($db, $MySql7);
+        if ( $res7 = mysqli_fetch_array($Result7) ) {
           // ?? faccio qualcosa ?
         } else {
-          $PD = mysql_real_escape_string ($res5['pdescrizione'] );
+          $PD = mysqli_real_escape_string ($db, $res5['pdescrizione'] );
           $MySql8 = "INSERT INTO logpaired ( IDoggetto1, IDoggetto2, IDutente, PD) VALUES
             ($IDoggetto, $newoggetto, $IDutente, '$PD')";
-          $Result8 = mysql_query($MySql8);
+          $Result8 = mysqli_query($db, $MySql8);
 
           $deltasan = $deltasan + $res5['effettosan'];
           $deltamiti = $deltamiti + $res5['effettomiti'];
@@ -180,8 +197,8 @@ if ( $IDutente != "" && $scan !="" && $IDprofessione != ""  && $IDspecial != "" 
     }
 
     $MySql9 = "SELECT * FROM personaggi  WHERE IDutente=$IDutente" ;
-    $Result9 = mysql_query($MySql9);
-    $res9 = mysql_fetch_array($Result9);
+    $Result9 = mysqli_query($db, $MySql9);
+    $res9 = mysqli_fetch_array($Result9);
     $oldsan = $res9['Sanita'];
     $oldmiti = $res9['Miti'];
     $oldpf = $res9['PF'];
@@ -206,14 +223,21 @@ if ( $IDutente != "" && $scan !="" && $IDprofessione != ""  && $IDspecial != "" 
     if ($newpf < 0) {$newpf=0; }
 
     $MySql9 = "UPDATE personaggi SET Sanita = $newsan  , Miti = $newmiti , pf = $newpf WHERE IDutente=$IDutente" ;
-    mysql_query($MySql9);
+    mysqli_query($db, $MySql9);
 
     $newout = [
       "nome" => $nome ,
       "descrizione" => $descrizione ,
+      "descrizione1" => $descrizione1 ,
+      "descrizione2" => $descrizione2 ,
+      "descrizione3" => $descrizione3 ,
+      "descrizione4" => $descrizione4 ,
       "deltasan" => $deltasan ,
       "deltamiti" => $deltamiti ,
-      "deltapf" => $deltapf
+      "deltapf" => $deltapf,
+      "newsan" => $newsan,
+      "newmiti" => $newmiti,
+      "newpf" => $newpf
     ];
 
       $output = json_encode($newout);

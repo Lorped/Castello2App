@@ -46,8 +46,8 @@ if ($scan != "" && $IDutente != "") {
 
 
   $MySql = "SELECT * FROM magie WHERE scan = '$scan' ";
-  $Result = mysql_query($MySql);
-  if ( $res = mysql_fetch_array($Result)   ) {
+  $Result = mysqli_query($db, $MySql);
+  if ( $res = mysqli_fetch_array($Result)   ) {
 
     $IDmagia = $res['IDmagia'];
     $nome = $res['nome'];
@@ -60,9 +60,24 @@ if ($scan != "" && $IDutente != "") {
     $minmiti = $res['minmiti'];
 
 
+    $MySql9 = "SELECT * FROM personaggi  WHERE IDutente=$IDutente" ;
+    $Result9 = mysqli_query($db, $MySql9);
+    $res9 = mysqli_fetch_array($Result9);
+    $oldsan = $res9['Sanita'];
+    $oldmiti = $res9['Miti'];
+    $oldpf = $res9['PF'];
+    $IDspecial = $res9['IDspecial'];
+    $xspecpg = $res9['xspecpg'];
+
+    $MAXpf = 3;
+    if ( $IDspecial == 9 || $xspecpg == 9 ) {  /** forze speciali o studenti con bonus **/
+      $MAXpf = 5;
+    }
+
+
     $MySql2 = "SELECT *  FROM personaggi WHERE  IDutente = $IDutente ";
-    $Result2 = mysql_query($MySql2);
-    if ( $res2 = mysql_fetch_array($Result2)   ) {
+    $Result2 = mysqli_query($db, $MySql2);
+    if ( $res2 = mysqli_fetch_array($Result2)   ) {
       $miti = $res2['Miti'];
     }
 

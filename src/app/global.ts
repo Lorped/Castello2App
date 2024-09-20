@@ -50,3 +50,14 @@ export class User {
         this.xbonus = '';
     }
 }
+
+@Injectable()
+export class Oggetto {
+  public id = '';
+}
+
+@Injectable()
+export class Status {
+    magie = false;
+    generico = false;
+}
