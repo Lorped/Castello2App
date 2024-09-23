@@ -19,7 +19,7 @@ export class Tab1Page implements OnInit {
     if (this.user.URLimg != "nopicture.gif") {
       this.img = "https://www.roma-by-night.it/Castello/assets/" + this.user.URLimg;
     } else {
-      this.img="assets/imgs/"+this.user.URLimg;  
+      this.img="assets/imgs/nopicture.gif";  
     }
 
   

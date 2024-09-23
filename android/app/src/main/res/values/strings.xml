@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Il Castello della Follia</string>
+    <string name="title_activity_main">Castello</string>
+    <string name="package_name">castello.gdr.larp</string>
+    <string name="custom_url_scheme">castello.gdr.larp</string>
+</resources>
