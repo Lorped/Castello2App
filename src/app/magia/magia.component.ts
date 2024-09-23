@@ -20,6 +20,8 @@ export class DescMagia  {
 })
 export class MagiaComponent  implements OnInit {
 
+  disabled = false ;
+
   outputNome = '???????';
   outputDescrizione = '???????';
   outputSAN = '??';
@@ -29,6 +31,7 @@ export class MagiaComponent  implements OnInit {
   constructor(public userservice: UserService, public oggetto: Oggetto, public user: User, public status: Status) { }
 
   ngOnInit() {
+    this.disabled = false;
     this.userservice.scanmagia(this.oggetto.id).subscribe(
       (data) => {
         
@@ -68,12 +71,17 @@ export class MagiaComponent  implements OnInit {
 
         this.user.Miti += this.myMagia.deltamiti;
         this.user.PF += this.myMagia.deltapf;
+
+        alert ('Magia Lanciata!');
+        this.disabled = true;
+
       });
     
   }
   indietro(){
     this.status.magie = false ;
     this.status.generico = false;
+    this.disabled=false;
   }
 
 }
