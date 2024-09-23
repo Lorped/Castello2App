@@ -22,14 +22,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 include ('../wsPHP/db.inc.php');
 
 
-$IDutente=$_GET['id'];
+$IDutente=$_GET['IDutente'];
 
 
 
 $out2 = [];
-$MySql="SELECT * FROM logscan
+$MySql="SELECT  scan , DATE_FORMAT( data , '%H:%i - %d %b %Y') AS datascan  , oggetti.nome, oggetti.descrizione FROM logscan
 	LEFT JOIN oggetti ON oggetti.IDoggetto = logscan.IDoggetto
-	WHERE IDutente='$IDutente' ";
+	WHERE IDutente='$IDutente' order by data desc";
 $Result=mysqli_query($db, $MySql);
 while ($res=mysqli_fetch_array($Result,MYSQLI_ASSOC) ){
 	$out2[] = $res;

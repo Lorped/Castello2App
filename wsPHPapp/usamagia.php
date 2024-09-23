@@ -42,11 +42,11 @@ if ($scan != "" && $IDutente != "") {
 
 
   $MySql = "SELECT * FROM magie WHERE scan = '$scan' ";
-  $Result = mysqli_query($MySql);
+  $Result = mysqli_query($db, $MySql);
   if ( $res = mysqli_fetch_array($Result)   ) {
 
     $IDmagia = $res['IDmagia'];
-    $nome = mysqli_real_escape_string( $res['nome']);
+    $nome = mysqli_real_escape_string($db,  $res['nome']);
     $descrizione = $res['descrizione'];
 
     $deltasan = $res['basesan'];
@@ -54,7 +54,7 @@ if ($scan != "" && $IDutente != "") {
     $deltapf = $res['basepf'];
 
     $MySql2 = "SELECT * FROM personaggi  WHERE IDutente=$IDutente" ;
-    $Result2=mysqli_query($MySql2);
+    $Result2=mysqli_query($db, $MySql2);
     $res2=mysqli_fetch_array($Result2);
     if (mysqli_errno($db))  die ( mysqli_errno($db).": ".mysqli_error($db)."+". $MySql2 );
 

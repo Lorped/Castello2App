@@ -1,22 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
-import { Oggetto, Status, User } from '../global';
+import { Oggetto, Status, User , DescOggetto} from '../global';
 
-export class DescOggetto {
-  public nome = ''; 
-  public descrizione = ''; // base
-  public descrizione1 = '';  // PROFESSIONE
-  public descrizione2 = ''; //SPECIAL
-  public descrizione3 = ''; //IDBP
-  public descrizione4 = ''; //PAIRED
-  public deltasan = 0 ;
-  public deltamiti = 0;
-  public deltapf = 0;
-  public newsan = 0 ;
-  public newmiti = 0;
-  public newpf = 0;
 
-}
 
 
 @Component({

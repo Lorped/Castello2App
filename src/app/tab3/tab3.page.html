@@ -1,13 +1,21 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+      Oggetti conosciuti
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
 
-
+  <ion-card *ngFor="let item of scanlist">
+    <ion-card-header>
+      <ion-card-title>{{item.nome}}</ion-card-title>
+      <ion-card-subtitle>{{item.datascan}}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      {{item.descrizione}}
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>

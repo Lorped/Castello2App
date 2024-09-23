@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Scan, User } from '../global';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-tab3',
@@ -7,6 +9,21 @@ import { Component } from '@angular/core';
 })
 export class Tab3Page {
 
-  constructor() {}
+  scanlist: Array<Scan> = [];
 
+  constructor(public user: User, public userservice: UserService) {}
+
+
+  ionViewWillEnter () {
+    this.scanlist = [];
+    this.loadscan();
+  }
+
+
+  loadscan(){
+    this.userservice.scanlist().subscribe( resp => {
+      this.scanlist = resp.scan;
+      //console.log(this.scanlist);
+    });
+  }
 }

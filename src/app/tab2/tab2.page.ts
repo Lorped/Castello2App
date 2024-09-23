@@ -61,18 +61,14 @@ export class Tab2Page implements OnInit{
     this.barcodes = [];
 
 
-    /************     DEBUG  DA SCOMMENTARE IN PRODUZIONE !!!!!!! */
-    /*
+
     const { barcodes } = await BarcodeScanner.scan();
     this.barcodes.push(...barcodes);
 
 
     this.oggetto.id=this.barcodes[0].rawValue;
-    */
 
-    this.oggetto.id="133969328925" ;
-    this.oggetto.id="745539492089";
-    this.oggetto.id="M640833372483";
+
 
     if (this.oggetto.id.substring(0,1)=='M'){
       this.status.magie = true ;

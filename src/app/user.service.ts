@@ -24,4 +24,12 @@ export class UserService {
     return this.http.get<any>('https://www.roma-by-night.it/Castello/wsPHPapp/scanmagia.php?IDutente=' + this.user.IDutente + '&scan=' + barcode);
   }
 
+  usamagia(barcode: string) {
+    return this.http.get<any>('https://www.roma-by-night.it/Castello/wsPHPapp/usamagia.php?IDutente=' + this.user.IDutente + '&scan=' + barcode);
+  }
+
+  scanlist() {
+    return this.http.get<any>('https://www.roma-by-night.it/Castello/wsPHPapp/getscanlist.php?IDutente=' + this.user.IDutente );
+  }
+
 }
