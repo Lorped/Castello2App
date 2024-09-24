@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 include ('../wsPHP/db.inc.php');
 
 
-$IDutente=$_GET['id'];
+$IDutente=$_GET['IDutente'];
 
 
 

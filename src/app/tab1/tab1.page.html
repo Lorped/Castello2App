@@ -13,6 +13,8 @@
 
 <ion-content [fullscreen]="true">
 
+  <ion-refresher (ionRefresh)="handleRefresh($event)" slot="fixed"><ion-refresher-content></ion-refresher-content></ion-refresher>
+
 
   <ion-grid>
 
