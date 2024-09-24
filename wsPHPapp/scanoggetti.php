@@ -245,7 +245,25 @@ if ( $IDutente != "" && $scan !=""  ) {
 
 
   } else {
-    header("HTTP/1.1 404 Unauthorized");
+    $MySql9 = "SELECT * FROM personaggi  WHERE IDutente=$IDutente" ;
+    $Result9 = mysqli_query($db, $MySql9);
+    $res9 = mysqli_fetch_array($Result9);
+    $newout = [
+      "nome" => 'Oggetto non valido' ,
+      "descrizione" => '' ,
+      "descrizione1" => '' ,
+      "descrizione2" => '' ,
+      "descrizione3" => '' ,
+      "descrizione4" => '' ,
+      "deltasan" => 0 ,
+      "deltamiti" => 0 ,
+      "deltapf" => 0,
+      "newsan" => $res9['Sanita'],
+      "newmiti" => $res9['Miti'],
+      "newpf" => $res9['PF'],
+    ];
+    $output = json_encode($newout);
+    echo $output;
   }
 } else {
     header("HTTP/1.1 401 Unauthorized");
