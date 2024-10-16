@@ -75,6 +75,14 @@ if ($scan != "" && $IDutente != "") {
     }
 
 
+    if ( $IDspecial == 16  ) {  /** professore **/
+      $deltasan = $deltasan -1 ;
+      if ($deltasan < 0 ) {
+        $deltasan = 0 ;
+      }
+    }
+
+
     $MySql2 = "SELECT *  FROM personaggi WHERE  IDutente = $IDutente ";
     $Result2 = mysqli_query($db, $MySql2);
     if ( $res2 = mysqli_fetch_array($Result2)   ) {
