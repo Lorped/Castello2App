@@ -71,4 +71,8 @@ Thumbs.db
 
 resources/android/**/*
 
+
+db.inc.php
+db2.inc.php
+google-services.json
 android/app/release
