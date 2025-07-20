@@ -4,6 +4,18 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Status, User } from '../global';
 import { Router } from '@angular/router';
 
+import { CapacitorConfig } from '@capacitor/cli';
+// import { FCM } from "@capacitor-community/fcm";
+
+import {
+  ActionPerformed,
+  PushNotificationSchema,
+  PushNotifications,
+  Token,
+} from '@capacitor/push-notifications';
+import { HttpClient } from '@angular/common/http';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -21,7 +33,7 @@ export class LoginPage implements OnInit {
 
     
 
-  constructor(public userservice: UserService, private user: User, public router: Router, public status: Status) { }
+  constructor(public userservice: UserService, private user: User, public router: Router, public status: Status, public http: HttpClient) { }
 
   ngOnInit() {
     var ee = window.localStorage.getItem( "castellouserid" ) ! ;
@@ -70,14 +82,101 @@ export class LoginPage implements OnInit {
         this.user.mm = resp.user.mm;
         this.user.nomeprofessione = resp.user.nomeprofessione;
         this.user.nomespecial = resp.user.nomespecial;
-        this.user.registratioID = resp.user.registratioID;
-        this.user.xbonus = resp.user.registratioID;
+        this.user.registrationID = resp.user.registrationID;
+        this.user.xbonus = resp.user.xbonus;
         this.user.xspecpg = resp.user.xspecpg;
         
 
         //console.log("user: ", this.user);
         this.status.generico = false;
         this.status.magie = false;
+
+
+
+
+
+
+        // Request permission to use push notifications
+    
+        PushNotifications.requestPermissions().then(result => {
+          if (result.receive === 'granted') {
+            // Register with Apple / Google to receive push via APNS/FCM
+            PushNotifications.register();
+          } else {
+            // Show some error
+          }
+        });
+
+        PushNotifications.createChannel(
+          {
+            name: 'Castello Channel',
+            id: 'PushPluginChannel',
+            description: 'Castello Channel',
+            importance: 5,
+            sound: 'notturna_sound'
+          }
+        );
+
+        const config: CapacitorConfig = {
+          plugins: {
+            PushNotifications: {
+              presentationOptions: ["badge", "sound", "alert"],
+            },
+          },
+        };
+
+
+        PushNotifications.addListener('registration', (token: Token) => {
+          //alert('Push registration success, token: ' + token.value);
+          let updateurl = 'https://www.roma-by-night.it/Castello/wsPHPapp/updateid.php?userid='+ this.user.IDutente+'&id='+token.value;
+			    this.http.get(updateurl).subscribe(res =>  {
+            // updated
+            //alert('Device registered '+token.value);
+			    });
+
+        });
+
+        PushNotifications.addListener('registrationError', (error: any) => {
+          alert('Error on registration: ' + JSON.stringify(error));
+        });
+
+        PushNotifications.addListener(
+          'pushNotificationReceived',
+          (notification: PushNotificationSchema) => {
+            //alert('Push received: ' + JSON.stringify(notification));
+          },
+        );
+
+        PushNotifications.addListener(
+          'pushNotificationActionPerformed',
+          (notification: ActionPerformed) => {
+            //alert('Push action performed: ' + JSON.stringify(notification));
+          },
+        );
+
+        /****
+    
+        FCM.subscribeTo({ topic: 'user' })
+        .then(r => console.log(`subscribed to topic: user `))
+        .catch(err => console.log(err));
+
+        this.http.get('https://www.roma-by-night.it/Notturna2/wsPHP/getregistra.php' ).subscribe( (data:any) => {
+          this.listaclan = data.clan;
+
+          this.listaclan.forEach(element => {
+            if ( element.idclan != Number(this.user.fulldata.idclan)){
+              FCM.unsubscribeFrom({ topic: element.nomeclan });
+              //console.log(`unsubscribed from topic: `, element.nomeclan);
+            }
+          });
+        });
+
+
+         *****/
+
+
+
+
 
 
         this.router.navigate(['tabs']);
