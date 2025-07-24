@@ -89,6 +89,16 @@ if ($scan != "" && $IDutente != "") {
       $miti = $res2['Miti'];
     }
 
+    if ($minmiti>$miti){
+      $compreso = "N";
+    } else {
+      $compreso = "Y";
+    }
+
+    $MySql3 = "INSERT INTO logscanmagia (IDmagia, IDutente, DescEstesa, compreso ) VALUES ($IDmagia, $IDutente , '$nome', '$compreso') ";
+    $Result3 = mysqli_query($db, $MySql3);
+    if (mysqli_errno($db))  die ( mysqli_errno($db).": ".mysqli_error($db)."+". $MySql3 );
+
     $newout = [
       "nome" => $nome ,
       "descrizione" => $descrizione ,
