@@ -45,6 +45,36 @@ while ($res=mysqli_fetch_array($Result,MYSQLI_ASSOC) ){
 	$out3[] = $res;
 }
 
+
+$MySql="SELECT concat(T1.nome ,  ' + ' , T2.nome ) as nome , DATE_FORMAT( data , '%H:%i - %d %b %Y') AS datascan  , PD	AS descrizione FROM logpaired
+	LEFT JOIN oggetti AS T1 ON T1.IDoggetto = logpaired.IDoggetto1
+	LEFT JOIN oggetti AS T2 ON T2.IDoggetto = logpaired.IDoggetto2
+	 WHERE IDutente = $IDutente";
+$Result=mysqli_query($db, $MySql);
+while ($res=mysqli_fetch_array($Result,MYSQLI_ASSOC) ){
+	$out2[] = $res;
+}
+
+
+$MySql="SELECT concat('Magia Lanciata: ',DescEstesa) as nome , DATE_FORMAT( data , '%H:%i - %d %b %Y') AS datascan , magie.descrizione as descrizione from logmagia 
+	left join magie on magie.IDmagia = logmagia.IDmagia
+	WHERE IDutente = $IDutente";
+$Result=mysqli_query($db, $MySql);
+while ($res=mysqli_fetch_array($Result,MYSQLI_ASSOC) ){
+	$out2[] = $res;
+}
+
+
+$MySql="SELECT concat('Magia Compresa: ',DescEstesa) as nome , DATE_FORMAT( data , '%H:%i - %d %b %Y') AS datascan , magie.descrizione as descrizione from logscanmagia
+	left join magie on magie.IDmagia = logscanmagia.IDmagia
+	WHERE IDutente = $IDutente and compreso = 'Y'";
+$Result=mysqli_query($db, $MySql);
+while ($res=mysqli_fetch_array($Result,MYSQLI_ASSOC) ){
+	$out2[] = $res;
+}
+
+
+
 $out = [
 	'scan' => $out2,
 	'pair' => $out3
