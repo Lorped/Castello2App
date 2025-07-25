@@ -35,6 +35,7 @@ while ($res=mysqli_fetch_array($Result,MYSQLI_ASSOC) ){
 	$out2[] = $res;
 }
 
+/**
 $out3 = [];
 $MySql="SELECT T1.nome as nome1, T2.nome as nome2, data, PD	FROM logpaired
 	LEFT JOIN oggetti AS T1 ON T1.IDoggetto = logpaired.IDoggetto1
@@ -44,6 +45,7 @@ $Result=mysqli_query($db, $MySql);
 while ($res=mysqli_fetch_array($Result,MYSQLI_ASSOC) ){
 	$out3[] = $res;
 }
+**/
 
 
 $MySql="SELECT concat(T1.nome ,  ' + ' , T2.nome ) as nome , DATE_FORMAT( data , '%H:%i - %d %b %Y') AS datascan  , PD	AS descrizione FROM logpaired
@@ -73,11 +75,18 @@ while ($res=mysqli_fetch_array($Result,MYSQLI_ASSOC) ){
 	$out2[] = $res;
 }
 
+$MySql="SELECT DATE_FORMAT( data , '%H:%i - %d %b %Y') AS data , testo , url from messaggi
+	WHERE destinatario = $IDutente ";
+$Result=mysqli_query($db, $MySql);
+while ($res=mysqli_fetch_array($Result,MYSQLI_ASSOC) ){
+	$out3[] = $res;
+}
+
 
 
 $out = [
 	'scan' => $out2,
-	'pair' => $out3
+	'messaggi' => $out3
 ];
 
 

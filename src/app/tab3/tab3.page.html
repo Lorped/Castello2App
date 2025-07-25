@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Oggetti conosciuti
+      Oggetti e Messaggi
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -16,6 +16,17 @@
     <ion-card-content>
       {{item.descrizione}}
     </ion-card-content>
+  </ion-card>
+
+    <ion-card *ngFor="let item of messaggi">
+    <ion-card-header>
+      <ion-card-title>Messaggio</ion-card-title>
+      <ion-card-subtitle>{{item.data}}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      {{item.testo}}
+    </ion-card-content>
+    <ion-button fill="clear" *ngIf="item.url" (click)="openMessaggio(item.url)">Apri</ion-button>
   </ion-card>
 
 </ion-content>

@@ -86,3 +86,9 @@ export class DescOggetto {
     public nome = ''; 
     public descrizione = ''; // base
   }
+
+  export class Messaggio  {
+    public data = '';
+    public testo = ''; // base
+    public url = '';
+  }
