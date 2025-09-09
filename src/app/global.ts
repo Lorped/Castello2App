@@ -76,7 +76,14 @@ export class DescOggetto {
     public newsan = 0 ;
     public newmiti = 0;
     public newpf = 0;
-  
+
+    public domanda = '';
+    public r1 = '';
+    public r2 = '';
+    public rispsan = 0;
+    public rispmiti = 0;
+    public risppf = 0;
+
   }
   
   export class Scan  {

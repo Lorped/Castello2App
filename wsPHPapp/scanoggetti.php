@@ -73,6 +73,12 @@ if ( $IDutente != "" && $scan !=""  ) {
   $descrizione3 = '' ;   //IDBP
   $descrizione4 = '' ;   //PAIRED
 
+  $domanda = ''; //DOMANDA
+  $r1 = ''; //RISPOSTA SI
+  $r2 = ''; //RISPOSTA NO
+  $rispsan = 0;
+  $rispmiti = 0;
+  $risppf = 0;
 
   $MySql = "SELECT * FROM oggetti WHERE scan = $scan ";
   $Result = mysqli_query($db, $MySql);
@@ -82,11 +88,18 @@ if ( $IDutente != "" && $scan !=""  ) {
     $nome = $res['nome'];
     $descrizione = $res['descrizione'];
 
+    $domanda = $res['domanda'];
+    $r1 = $res['r1'];
+    $r2 = $res['r2'];
+    $rispsan = $res['rispsan'];
+    $rispmiti = $res['rispmiti'];
+    $risppf = $res['risppf'];
+
     $MySql2 = "SELECT *  FROM logscan WHERE IDoggetto = $IDoggetto AND IDutente = $IDutente ";
     $Result2 = mysqli_query($db, $MySql2);
 
     if ( $res2 = mysqli_fetch_array($Result2)   ) {
-      //già scannerizzato aggiorno OutOfRangeException
+      //già scannerizzato aggiorno logscan
       $MySql3 = "UPDATE logscan SET data = NOW() WHERE IDoggetto = $IDoggetto AND IDutente = $IDutente";
       $Result3 = mysqli_query($db, $MySql3);
     } else {
@@ -237,7 +250,13 @@ if ( $IDutente != "" && $scan !=""  ) {
       "deltapf" => $deltapf,
       "newsan" => $newsan,
       "newmiti" => $newmiti,
-      "newpf" => $newpf
+      "newpf" => $newpf,
+      "domanda" => $domanda,
+      "r1" => $r1,
+      "r2" => $r2,
+      "rispsan" => $rispsan,
+      "rispmiti" => $rispmiti,
+      "risppf" => $risppf
     ];
 
       $output = json_encode($newout);
@@ -261,6 +280,12 @@ if ( $IDutente != "" && $scan !=""  ) {
       "newsan" => $res9['Sanita'],
       "newmiti" => $res9['Miti'],
       "newpf" => $res9['PF'],
+      "domanda" => '',
+      "r1" => '',
+      "r2" => '',
+      "rispsan" => 0,
+      "rispmiti" => 0,
+      "risppf" => 0
     ];
     $output = json_encode($newout);
     echo $output;

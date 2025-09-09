@@ -56,8 +56,30 @@
   </ion-card-header>
 </ion-card>
 
-<ion-row>
+
+
+<ion-card *ngIf="newoggetto.domanda != ''">
+  <ion-card-header>
+    <ion-card-title>DOMANDA</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    {{newoggetto.domanda}}
+  </ion-card-content>
+  <ion-row>
+    <ion-col class="alc" *ngIf="flagno !== 1">
+      <ion-button  color="danger" (click)="RispSI()" [disabled]="flagsi === 1">SI</ion-button>
+    </ion-col>
+    <ion-col class="alc" *ngIf="flagsi !== 1">
+      <ion-button  color="primary" (click)="RispNO()" [disabled]="flagno === 1">NO</ion-button> <span *ngIf="flagno === 1"> {{newoggetto.r2}}</span>
+    </ion-col>
+  </ion-row>
+  
+</ion-card>
+
+<ion-row *ngIf="newoggetto.domanda == '' || flagno === 1">
 <ion-col class="alc">
   <ion-button color="primary" (click)="dismiss()">Chiudi</ion-button>
 </ion-col>
 </ion-row>
+
+
