@@ -25,13 +25,54 @@ include ('../wsPHP/db.inc.php');
 $IDutente=$_GET['IDutente'];
 
 
+$MySql = "SELECT * from personaggi WHERE IDutente='$IDutente'";
+  $Result = mysqli_query($db, $MySql);
+  if ( $res = mysqli_fetch_array($Result)   ) {
+    $IDprofessione = $res['IDprofessione'];
+    $IDspecial = $res['IDspecial'];
+    $IDbp = $res['IDbp'];
+
+}
+
+
+
 
 $out2 = [];
-$MySql="SELECT  scan , DATE_FORMAT( data , '%H:%i - %d %b %Y') AS datascan  , oggetti.nome, oggetti.descrizione FROM logscan
+$MySql="SELECT  scan , DATE_FORMAT( data , '%H:%i - %d %b %Y') AS datascan  , oggetti.nome, oggetti.descrizione, logscan.IDoggetto FROM logscan
 	LEFT JOIN oggetti ON oggetti.IDoggetto = logscan.IDoggetto
 	WHERE IDutente='$IDutente' order by data desc";
 $Result=mysqli_query($db, $MySql);
 while ($res=mysqli_fetch_array($Result,MYSQLI_ASSOC) ){
+
+			$IDoggetto = $res['IDoggetto'];
+			$descrizioneEXT = '';
+
+			//cerco descrizione estesa basata su IDprofessione
+			$MySql4 = "SELECT *  FROM effetti WHERE IDoggetto = $IDoggetto AND IDprofessione = $IDprofessione ";
+			$Result4 = mysqli_query($db, $MySql4);
+			if ( $res4 = mysqli_fetch_array($Result4) ) {
+				$descrizioneEXT = $res4['descrizione'];
+			}
+
+			//cerco descrizione estesa basata su IDspecial
+			$MySql4 = "SELECT *  FROM effetti WHERE IDoggetto = $IDoggetto AND IDspecial = $IDspecial ";
+			$Result4 = mysqli_query($db, $MySql4);
+			if ( $res4 = mysqli_fetch_array($Result4) ) {
+				$descrizioneEXT = $descrizioneEXT." ".$res4['descrizione'];
+			}
+
+			//cerco descrizione estesa basata su IDbp
+
+			$MySql4 = "SELECT *  FROM effetti WHERE IDoggetto = $IDoggetto AND IDbp = $IDbp ";
+			$Result4 = mysqli_query($db, $MySql4);
+			if ( $res4 = mysqli_fetch_array($Result4) ) {
+				$descrizioneEXT = $descrizioneEXT." ".$res4['descrizione'];
+			}
+
+
+
+
+	$res['descrizione'] = $res['descrizione']." ".$descrizioneEXT;
 	$out2[] = $res;
 }
 

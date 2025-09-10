@@ -57,8 +57,9 @@ export class Tab2Page implements OnInit{
   async openbarcode() {
 
     //   DEGUG !!!!
+    /***************
     this.oggetto.id='774551497353';
-    //this.oggetto.id='825886546308';
+
     if (this.oggetto.id.substring(0,1)=='M'){
       this.status.magie = true ;
       this.status.generico = false;
@@ -68,6 +69,7 @@ export class Tab2Page implements OnInit{
       this.status.generico = true;
     }
     return ;
+    ****************/
     //this.router.navigate(['/tabs/oggetto']);
     //   FINE DEBUG !!!!
 

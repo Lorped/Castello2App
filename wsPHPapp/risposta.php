@@ -30,7 +30,7 @@ $scan = $request->scan;
 */
 
 $IDutente = $_GET['IDutente'];
-$IDoggetto = $_GET['IDoggetto'];
+$Scan = $_GET['IDoggetto'];
 $Risposta = $_GET['Risposta'];
 
 
@@ -39,14 +39,23 @@ $Risposta = $_GET['Risposta'];
 
 include ('../wsPHP/db.inc.php');
 
-if ($IDoggetto != "" && $IDutente != "") {
+if ($Scan != "" && $IDutente != "") {
 
 
     if ($Risposta == "0") {    // NO
 
+      $MySql2 = "SELECT * FROM oggetti  WHERE scan=$Scan" ;
+      $Result2=mysqli_query($db, $MySql2);
+      $res2=mysqli_fetch_array($Result2);
+      if (mysqli_errno($db))  die ( mysqli_errno($db).": ".mysqli_error($db)."+". $MySql2 );
+      $IDoggetto = $res2['IDoggetto'];
+
+
       $MySql = " INSERT INTO logrisposte (IDutente, IDoggetto, Risposta) VALUES ($IDutente, $IDoggetto, $Risposta)";
       mysqli_query($db, $MySql);
       if (mysqli_errno($db))  die ( mysqli_errno($db).": ".mysqli_error($db)."+". $MySql );
+
+      $output = json_encode("OK");
 
     } else {
           $MySql2 = "SELECT * FROM personaggi  WHERE IDutente=$IDutente" ;
@@ -66,14 +75,15 @@ if ($IDoggetto != "" && $IDutente != "") {
 
 
 
-          $MySql2 = "SELECT * FROM oggetti  WHERE IDoggetto=$IDoggetto" ;
+          $MySql2 = "SELECT * FROM oggetti  WHERE scan=$Scan" ;
           $Result2=mysqli_query($db, $MySql2);
           $res2=mysqli_fetch_array($Result2);
           if (mysqli_errno($db))  die ( mysqli_errno($db).": ".mysqli_error($db)."+". $MySql2 );
 
-          $deltasan = $res['rispsan'];
-          $deltamiti =  $res['rispmiti'];
-          $deltapf = $res['risppf'];
+          $IDoggetto = $res2['IDoggetto'];
+          $deltasan = $res2['rispsan'];
+          $deltamiti =  $res2['rispmiti'];
+          $deltapf = $res2['risppf'];
 
 
           $newsan=$oldsan+$deltasan;
@@ -88,22 +98,29 @@ if ($IDoggetto != "" && $IDutente != "") {
           if ($newpf < 0) {$newpf=0; }
 
           $MySql9 = "UPDATE personaggi SET Sanita = $newsan  , Miti = $newmiti , pf = $newpf WHERE IDutente=$IDutente" ;
+
+
           mysqli_query($db, $MySql9);
           if (mysqli_errno($db))  die ( mysqli_errno($db).": ".mysqli_error($db)."+". $MySql9 );
 
           $MySql = " INSERT INTO logrisposte (IDutente, IDoggetto, Risposta) VALUES ($IDutente, $IDoggetto, $Risposta)";
           mysqli_query($db, $MySql);
           if (mysqli_errno($db))  die ( mysqli_errno($db).": ".mysqli_error($db)."+". $MySql );
+
+
+          $newout = [
+            "sanita" => $newsan ,
+            "miti" => $newmiti ,
+            "pf" => $newpf ,
+          ];
+          $output = json_encode($newout);
     }
 
     
 
- 
 
 
 
-
-    $output = json_encode("OK");
     echo $output;
 
   } else {

@@ -39,10 +39,25 @@ export class OggettoComponent  implements OnInit {
   }
 
   dismiss(){
+    this.flagdomanda = 0;
+    this.flagsi = 0;
+    this.flagno = 0;
     this.status.generico = false;
   }
 
   RispSI(){
+    // mando call per segnare il tutto
+    this.userservice.risposta(1, this.oggetto.id).subscribe(
+      (data) => {
+        //console.log(data);
+
+        this.user.Sanita = data.sanita;
+        this.user.Miti = data.miti;
+        this.user.PF = data.pf;
+
+        this.flagsi = 1;
+      }
+    );
     
   }
 
