@@ -117,7 +117,7 @@ while ($res=mysqli_fetch_array($Result,MYSQLI_ASSOC) ){
 }
 
 $MySql="SELECT DATE_FORMAT( data , '%H:%i - %d %b %Y') AS data , testo , url from messaggi
-	WHERE destinatario = $IDutente ";
+	WHERE destinatario = $IDutente order by data desc";
 $Result=mysqli_query($db, $MySql);
 while ($res=mysqli_fetch_array($Result,MYSQLI_ASSOC) ){
 	$out3[] = $res;
