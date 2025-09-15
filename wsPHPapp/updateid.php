@@ -29,8 +29,15 @@ $id=$_GET['id'];
 
 $userid=$_GET['userid'];
 
-$MySql = "UPDATE personaggi SET registrationID='$id' WHERE IDutente=$userid" ;
-$Result = mysqli_query($db, $MySql);
+if ($userid == 0) {
+  	$MySql = "UPDATE master SET registrationID='$id' " ;
+	$Result = mysqli_query($db, $MySql);
+} else {
+	$MySql = "UPDATE personaggi SET registrationID='$id' WHERE IDutente=$userid" ;
+	$Result = mysqli_query($db, $MySql);
+}
+
+
 
 
 

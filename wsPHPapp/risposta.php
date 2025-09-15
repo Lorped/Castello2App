@@ -39,6 +39,9 @@ $Risposta = $_GET['Risposta'];
 
 include ('../wsPHP/db.inc.php');
 
+
+include ('../wsPHP/messaggi.inc.php');
+
 if ($Scan != "" && $IDutente != "") {
 
 
@@ -49,6 +52,7 @@ if ($Scan != "" && $IDutente != "") {
       $res2=mysqli_fetch_array($Result2);
       if (mysqli_errno($db))  die ( mysqli_errno($db).": ".mysqli_error($db)."+". $MySql2 );
       $IDoggetto = $res2['IDoggetto'];
+      $$nome = $res2['nome'];
 
 
       $MySql = " INSERT INTO logrisposte (IDutente, IDoggetto, Risposta) VALUES ($IDutente, $IDoggetto, $Risposta)";
@@ -56,6 +60,10 @@ if ($Scan != "" && $IDutente != "") {
       if (mysqli_errno($db))  die ( mysqli_errno($db).": ".mysqli_error($db)."+". $MySql );
 
       $output = json_encode("OK");
+
+      $testo = "Ha risposto NO all'oggetto $nome";
+      user2master ( $IDutente , $testo, $db );
+
 
     } else {
           $MySql2 = "SELECT * FROM personaggi  WHERE IDutente=$IDutente" ;
@@ -85,6 +93,7 @@ if ($Scan != "" && $IDutente != "") {
           $deltamiti =  $res2['rispmiti'];
           $deltapf = $res2['risppf'];
 
+          $nome = $res2['nome'];
 
           $newsan=$oldsan+$deltasan;
           if ($newsan > 10) {$newsan=10; }
@@ -106,6 +115,10 @@ if ($Scan != "" && $IDutente != "") {
           $MySql = " INSERT INTO logrisposte (IDutente, IDoggetto, Risposta) VALUES ($IDutente, $IDoggetto, $Risposta)";
           mysqli_query($db, $MySql);
           if (mysqli_errno($db))  die ( mysqli_errno($db).": ".mysqli_error($db)."+". $MySql );
+
+
+          $testo = "Ha risposto SI all'oggetto $nome";
+          user2master ( $IDutente , $testo, $db );
 
 
           $newout = [
