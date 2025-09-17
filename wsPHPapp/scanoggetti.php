@@ -57,6 +57,7 @@ $firsttime=0;
 if ( $IDutente != "" && $scan !=""  ) {
 
   include ('../wsPHP/db.inc.php');
+  include ('../wsPHP/messaggi.inc.php');
 
   $MySql = "SELECT * from personaggi WHERE IDutente='$IDutente'";
   $Result = mysqli_query($db, $MySql);
@@ -195,6 +196,11 @@ if ( $IDutente != "" && $scan !=""  ) {
         $Result7 = mysqli_query($db, $MySql7);
         if ( $res7 = mysqli_fetch_array($Result7) ) {
           // ?? faccio qualcosa ?
+          $MySql8 = "UPDATE logpaired SET data=NOW() WHERE IDutente=$IDutente AND
+         ( ( IDoggetto1 = $IDoggetto AND IDoggetto2 = $newoggetto) OR
+           ( IDoggetto2 = $IDoggetto AND IDoggetto1 = $newoggetto) ) ";
+        $Result8 = mysqli_query($db, $MySql8);
+
         } else {
           $PD = mysqli_real_escape_string ($db, $res5['pdescrizione'] );
           $MySql8 = "INSERT INTO logpaired ( IDoggetto1, IDoggetto2, IDutente, PD) VALUES
@@ -205,6 +211,20 @@ if ( $IDutente != "" && $scan !=""  ) {
           $deltamiti = $deltamiti + $res5['effettomiti'];
           $deltapf = $deltapf + $res5['effettopf'];
         }
+
+          $MySql7 = "SELECT * FROM oggetti WHERE IDoggetto = $IDoggetto ";
+          $Result7 = mysqli_query($db, $MySql7);
+          if ( $res7 = mysqli_fetch_array($Result7) ) {
+            $nome1 = $res7['nome'];
+          }
+          $MySql7 = "SELECT * FROM oggetti WHERE IDoggetto = $newoggetto ";
+          $Result7 = mysqli_query($db, $MySql7);
+          if ( $res7 = mysqli_fetch_array($Result7) ) {
+            $nome2 = $res7['nome'];
+          }
+          $testo = "Ha collegato gli oggetti: $nome1 e $nome2";
+          user2master ( $IDutente , $testo, $db );
+        
       }
 
     }
