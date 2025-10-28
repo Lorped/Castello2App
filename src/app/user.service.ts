@@ -39,5 +39,8 @@ export class UserService {
   risposta(risp: number, IDoggetto: string) {
     return this.http.get<any>('https://www.roma-by-night.it/Castello/wsPHPapp/risposta.php?IDutente=' + this.user.IDutente + '&Risposta=' + risp + '&IDoggetto=' + IDoggetto);
   }
+  risposta2(risp: number, IDoggetto: string) {
+    return this.http.get<any>('https://www.roma-by-night.it/Castello/wsPHPapp/risposta2.php?IDutente=' + this.user.IDutente + '&Risposta=' + risp + '&IDoggetto=' + IDoggetto);
+  }
 
 }

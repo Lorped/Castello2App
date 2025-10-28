@@ -58,7 +58,7 @@ export class Tab2Page implements OnInit{
 
     //   DEGUG !!!!
     /***************
-    this.oggetto.id='774551497353';
+    this.oggetto.id='358035692152';
 
     if (this.oggetto.id.substring(0,1)=='M'){
       this.status.magie = true ;
@@ -71,6 +71,7 @@ export class Tab2Page implements OnInit{
     return ;
     ****************/
     //this.router.navigate(['/tabs/oggetto']);
+    /****************/
     //   FINE DEBUG !!!!
 
 

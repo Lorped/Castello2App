@@ -84,6 +84,9 @@ export class DescOggetto {
     public rispmiti = 0;
     public risppf = 0;
 
+    public richiesta = '';
+    public password = '';
+    public passwdok = '';
   }
   
   export class Scan  {

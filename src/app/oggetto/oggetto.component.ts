@@ -17,6 +17,11 @@ export class OggettoComponent  implements OnInit {
   flagsi = 0;
   flagno = 0;
 
+  rispok = 0;
+  miarisposta = '';
+
+  NumRisposte = 1;
+
   constructor( public userservice: UserService, public oggetto: Oggetto, public status: Status, public user: User) { }
 
   ngOnInit() {
@@ -70,6 +75,34 @@ export class OggettoComponent  implements OnInit {
         this.flagno = 1;
       }
     );
+  }
+
+  Risposta(){
+    if (this.miarisposta.toUpperCase() == this.newoggetto.password.toUpperCase()) {
+      // mando call per segnare risposta corretta
+      this.userservice.risposta2(0, this.oggetto.id).subscribe(
+        (data) => {
+        //console.log(data);
+          this.rispok = 1;     
+        }
+      );
+    } else {
+      this.rispok = 2;
+      this.NumRisposte++;
+      if (this.NumRisposte > 10) {
+        // mando call per segnare max risposte sbagliate
+        this.userservice.risposta2(1, this.oggetto.id).subscribe(
+          (data) => {
+            //console.log(data);          
+          }
+        );
+      }
+    }
+  }
+
+  riprova(){
+    this.rispok = 0;
+    this.miarisposta = '';
   }
 
 }

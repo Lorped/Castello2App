@@ -96,6 +96,10 @@ if ( $IDutente != "" && $scan !=""  ) {
     $rispmiti = $res['rispmiti'];
     $risppf = $res['risppf'];
 
+    $richiesta = $res['richiesta'];
+    $password = $res['password'];
+    $passwdok = $res['passwdok'];
+
     $MySql2 = "SELECT *  FROM logscan WHERE IDoggetto = $IDoggetto AND IDutente = $IDutente ";
     $Result2 = mysqli_query($db, $MySql2);
 
@@ -276,7 +280,10 @@ if ( $IDutente != "" && $scan !=""  ) {
       "r2" => $r2,
       "rispsan" => $rispsan,
       "rispmiti" => $rispmiti,
-      "risppf" => $risppf
+      "risppf" => $risppf,
+      "richiesta" => $richiesta,
+      "password" => $password,
+      "passwdok" => $passwdok
     ];
 
       $output = json_encode($newout);
@@ -305,7 +312,10 @@ if ( $IDutente != "" && $scan !=""  ) {
       "r2" => '',
       "rispsan" => 0,
       "rispmiti" => 0,
-      "risppf" => 0
+      "risppf" => 0,
+      "richiesta" => '',
+      "password" => '',
+      "passwdok" => ''
     ];
     $output = json_encode($newout);
     echo $output;

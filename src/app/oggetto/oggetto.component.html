@@ -87,7 +87,35 @@
   </ion-card-header>
 </ion-card>
 
-<ion-row *ngIf="newoggetto.domanda == '' || flagno === 1 || flagsi === 1">
+<ion-card *ngIf="newoggetto.richiesta != ''">
+  <ion-card-header>
+    <ion-card-title> {{newoggetto.richiesta}}</ion-card-title>
+  </ion-card-header>
+
+  <ion-row>
+    <ion-col class="alc" >
+      <ion-input placeholder="Risposta" [disabled]="rispok !== 0" [(ngModel)]="miarisposta"></ion-input>
+    </ion-col>
+  </ion-row>
+  <ion-row >
+    <ion-col class="alc" *ngIf="rispok === 0">
+      <ion-button  color="primary" (click)="Risposta()" >Invia [{{NumRisposte}}/10]</ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="alc" >
+      <span *ngIf="rispok === 1" style="font-size: 1.5rem ; color: #00FF00;"> {{newoggetto.passwdok}}</span>
+      <span *ngIf="rispok === 2" style="font-size: 1.5rem ; color: #FF0000;"> Risposta errata</span>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="rispok == 2 && NumRisposte < 11">
+    <ion-col class="alc">
+      <ion-button color="danger" (click)="riprova()">Riprova</ion-button>
+    </ion-col>
+</ion-row>
+</ion-card>
+
+<ion-row *ngIf="(newoggetto.domanda == '' && newoggetto.richiesta == '') || flagno === 1 || flagsi === 1 || rispok !== 0">
 <ion-col class="alc">
   <ion-button color="primary" (click)="dismiss()">Chiudi</ion-button>
 </ion-col>
