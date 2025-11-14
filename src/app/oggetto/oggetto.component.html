@@ -2,7 +2,7 @@
   <ion-card-header>
     <ion-card-title>{{newoggetto.nome}}</ion-card-title>
   </ion-card-header>
-  <ion-card-content class="selectable">
+  <ion-card-content class="selectable ion-text-wrap">
     {{newoggetto.descrizione}}
   </ion-card-content>
 </ion-card>
@@ -11,7 +11,7 @@
   <ion-card-header>
     <ion-card-subtitle><span class="gold">({{user.nomeprofessione}})</span></ion-card-subtitle>
   </ion-card-header>
-  <ion-card-content class="selectable">
+  <ion-card-content class="selectable ion-text-wrap">
     {{newoggetto.descrizione1}}
   </ion-card-content>
 </ion-card>
@@ -21,7 +21,7 @@
   <ion-card-header>
     <ion-card-subtitle><span class="gold">({{user.nomespecial}})</span></ion-card-subtitle>
   </ion-card-header>
-  <ion-card-content class="selectable">
+  <ion-card-content class="selectable ion-text-wrap">
     {{newoggetto.descrizione2}}
   </ion-card-content>
 </ion-card>
@@ -30,7 +30,7 @@
   <ion-card-header>
     <ion-card-subtitle><span class="gold">({{user.descbp}})</span></ion-card-subtitle>
   </ion-card-header>
-  <ion-card-content class="selectable">
+  <ion-card-content class="selectable ion-text-wrap">
     {{newoggetto.descrizione3}}
   </ion-card-content>
 </ion-card>
@@ -39,7 +39,7 @@
   <ion-card-header>
     <ion-card-title>PAIRED</ion-card-title>
   </ion-card-header>
-  <ion-card-content class="selectable">
+  <ion-card-content class="selectable ion-text-wrap">
     {{newoggetto.descrizione4}}
   </ion-card-content>
 </ion-card>
@@ -67,10 +67,10 @@
   </ion-card-content>
   <ion-row>
     <ion-col class="alc" *ngIf="flagno !== 1">
-      <ion-button  color="danger" (click)="RispSI()" [disabled]="flagsi === 1">SI</ion-button><span *ngIf="flagsi === 1"> {{newoggetto.r1}}</span>
+      <ion-button  color="danger" (click)="RispSI()" [disabled]="flagsi === 1">SI</ion-button><span *ngIf="flagsi === 1" class="selectable"> {{newoggetto.r1}}</span>
     </ion-col>
     <ion-col class="alc" *ngIf="flagsi !== 1">
-      <ion-button  color="primary" (click)="RispNO()" [disabled]="flagno === 1">NO</ion-button> <span *ngIf="flagno === 1"> {{newoggetto.r2}}</span>
+      <ion-button  color="primary" (click)="RispNO()" [disabled]="flagno === 1">NO</ion-button> <span *ngIf="flagno === 1" class="selectable"> {{newoggetto.r2}}</span>
     </ion-col>
   </ion-row>
 </ion-card>
