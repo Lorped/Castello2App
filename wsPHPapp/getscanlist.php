@@ -38,7 +38,7 @@ $MySql = "SELECT * from personaggi WHERE IDutente='$IDutente'";
 
 
 $out2 = [];
-$MySql="SELECT  scan , DATE_FORMAT( data , '%H:%i - %d %b %Y') AS datascan  , oggetti.nome, oggetti.descrizione, logscan.IDoggetto FROM logscan
+$MySql="SELECT  scan , DATE_FORMAT( data , '%H:%i - %d %b %Y') AS datascan, UNIX_TIMESTAMP(data) AS timestamp  , oggetti.nome, oggetti.descrizione, logscan.IDoggetto FROM logscan
 	LEFT JOIN oggetti ON oggetti.IDoggetto = logscan.IDoggetto
 	WHERE IDutente='$IDutente' order by data desc";
 $Result=mysqli_query($db, $MySql);
@@ -89,7 +89,7 @@ while ($res=mysqli_fetch_array($Result,MYSQLI_ASSOC) ){
 **/
 
 
-$MySql="SELECT concat(T1.nome ,  ' + ' , T2.nome ) as nome , DATE_FORMAT( data , '%H:%i - %d %b %Y') AS datascan  , PD	AS descrizione FROM logpaired
+$MySql="SELECT concat(T1.nome ,  ' + ' , T2.nome ) as nome , DATE_FORMAT( data , '%H:%i - %d %b %Y') AS datascan, UNIX_TIMESTAMP(data) AS timestamp  , PD	AS descrizione FROM logpaired
 	LEFT JOIN oggetti AS T1 ON T1.IDoggetto = logpaired.IDoggetto1
 	LEFT JOIN oggetti AS T2 ON T2.IDoggetto = logpaired.IDoggetto2
 	 WHERE IDutente = $IDutente";
@@ -99,7 +99,7 @@ while ($res=mysqli_fetch_array($Result,MYSQLI_ASSOC) ){
 }
 
 
-$MySql="SELECT concat('Magia Lanciata: ',DescEstesa) as nome , DATE_FORMAT( data , '%H:%i - %d %b %Y') AS datascan , magie.descrizione as descrizione from logmagia 
+$MySql="SELECT concat('Magia Lanciata: ',DescEstesa) as nome , DATE_FORMAT( data , '%H:%i - %d %b %Y') AS datascan, UNIX_TIMESTAMP(data) AS timestamp , magie.descrizione as descrizione from logmagia 
 	left join magie on magie.IDmagia = logmagia.IDmagia
 	WHERE IDutente = $IDutente";
 $Result=mysqli_query($db, $MySql);
@@ -108,7 +108,7 @@ while ($res=mysqli_fetch_array($Result,MYSQLI_ASSOC) ){
 }
 
 
-$MySql="SELECT concat('Magia Compresa: ',DescEstesa) as nome , DATE_FORMAT( data , '%H:%i - %d %b %Y') AS datascan , magie.descrizione as descrizione from logscanmagia
+$MySql="SELECT concat('Magia Compresa: ',DescEstesa) as nome , DATE_FORMAT( data , '%H:%i - %d %b %Y') AS datascan, UNIX_TIMESTAMP(data) AS timestamp , magie.descrizione as descrizione from logscanmagia
 	left join magie on magie.IDmagia = logscanmagia.IDmagia
 	WHERE IDutente = $IDutente and compreso = 'Y'";
 $Result=mysqli_query($db, $MySql);
@@ -116,7 +116,7 @@ while ($res=mysqli_fetch_array($Result,MYSQLI_ASSOC) ){
 	$out2[] = $res;
 }
 
-$MySql="SELECT DATE_FORMAT( data , '%H:%i - %d %b %Y') AS data , testo , url from messaggi
+$MySql="SELECT DATE_FORMAT( data , '%H:%i - %d %b %Y') AS data, UNIX_TIMESTAMP(data) AS timestamp , testo , url from messaggi
 	WHERE destinatario = $IDutente order by data desc";
 $Result=mysqli_query($db, $MySql);
 while ($res=mysqli_fetch_array($Result,MYSQLI_ASSOC) ){

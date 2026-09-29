@@ -92,6 +92,7 @@ export class DescOggetto {
   export class Scan  {
     public IDoggetto = '';
     public datascan = '';
+    public timestamp: number | string = 0;
     public scan = '';  //identificativo barcode
     public nome = ''; 
     public descrizione = ''; // base
@@ -99,6 +100,7 @@ export class DescOggetto {
 
   export class Messaggio  {
     public data = '';
+    public timestamp: number | string = 0;
     public testo = ''; // base
     public url = '';
   }

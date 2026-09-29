@@ -12,6 +12,7 @@ export class Tab3Page {
 
   scanlist: Array<Scan> = [];
   messaggi: Array<Messaggio> = [];
+  timeline: Array<{ tipo: 'scan', data: string, timestamp: number, scan: Scan } | { tipo: 'messaggio', data: string, timestamp: number, messaggio: Messaggio }> = [];
 
   constructor(public user: User, public userservice: UserService, private iab: InAppBrowser,) {}
 
@@ -27,9 +28,10 @@ export class Tab3Page {
       this.scanlist = resp.scan;
       this.messaggi = resp.messaggi;
 
-      this.scanlist.sort((a, b) => {
-        return <any>new Date(a.datascan) - <any>new Date(b.datascan);
-      });
+      this.timeline = [
+        ...this.scanlist.map(scan => ({ tipo: 'scan' as const, data: scan.datascan, timestamp: Number(scan.timestamp), scan })),
+        ...this.messaggi.map(messaggio => ({ tipo: 'messaggio' as const, data: messaggio.data, timestamp: Number(messaggio.timestamp), messaggio })),
+      ].sort((a, b) => b.timestamp - a.timestamp);
       //console.log(this.scanlist);
     });
   }

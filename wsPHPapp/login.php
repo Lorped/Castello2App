@@ -35,6 +35,9 @@ if (isset($postdata) && $email != "" && $password !="" ) {
 
   include ('../wsPHP/db.inc.php');
 
+  $MySql="DELETE from messaggi where data < NOW() - INTERVAL 15 DAY";
+  $Result=mysqli_query($db, $MySql);
+
 
   $MySql = "SELECT IDutente FROM utenti WHERE email = '".addslashes($email)."' AND password = '".addslashes($password)."'";
     $Result = mysqli_query($db, $MySql);
