@@ -85,8 +85,12 @@ export class Tab2Page {
     this.barcodes.push(...barcodes);
     this.changeDetectorRef.markForCheck();
 
+    const scannedId = this.barcodes[0]?.rawValue;
+    if (!scannedId) {
+      return;
+    }
 
-    this.oggetto.id=this.barcodes[0].rawValue;
+    this.oggetto.id = scannedId;
 
 
 

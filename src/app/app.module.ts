@@ -7,7 +7,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular/lazy';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+import { Browser } from '@capacitor/browser';
 
 
 
@@ -31,7 +31,6 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
     Oggetto,
     Status,
     provideHttpClient(withXhr()),
-    InAppBrowser
   ],
   bootstrap: [AppComponent],
 })
