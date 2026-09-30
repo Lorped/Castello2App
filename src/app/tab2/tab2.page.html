@@ -11,16 +11,16 @@
   <ion-card color="medium">
     <ion-card-subtitle>
       <ion-row>
-      <ion-col>San</ion-col>
-      <ion-col>Miti</ion-col>
-      <ion-col>PF</ion-col>
+        <ion-col>San</ion-col>
+        <ion-col>Miti</ion-col>
+        <ion-col>PF</ion-col>
       </ion-row>
     </ion-card-subtitle>
     <ion-card-title>
       <ion-row>
-      <ion-col>{{user.Sanita}}</ion-col>
-      <ion-col>{{user.Miti}}</ion-col>
-      <ion-col>{{user.PF}}</ion-col>
+        <ion-col>{{user.Sanita}}</ion-col>
+        <ion-col>{{user.Miti}}</ion-col>
+        <ion-col>{{user.PF}}</ion-col>
       </ion-row>
     </ion-card-title>
 
@@ -32,7 +32,11 @@
     </ion-col>
   </ion-row>
 
-  <app-oggetto *ngIf="status.generico===true"></app-oggetto>
-  <app-magia *ngIf="status.magie===true"></app-magia>
- 
+  @if (status.generico===true) {
+    <app-oggetto></app-oggetto>
+  }
+  @if (status.magie===true) {
+    <app-magia></app-magia>
+  }
+
 </ion-content>

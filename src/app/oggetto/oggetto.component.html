@@ -7,118 +7,163 @@
   </ion-card-content>
 </ion-card>
 
-<ion-card *ngIf="newoggetto.descrizione1 != ''">
-  <ion-card-header>
-    <ion-card-subtitle><span class="gold">({{user.nomeprofessione}})</span></ion-card-subtitle>
-  </ion-card-header>
-  <ion-card-content class="selectable ion-text-wrap">
-    {{newoggetto.descrizione1}}
-  </ion-card-content>
+@if (newoggetto.descrizione1 != '') {
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle><span class="gold">({{user.nomeprofessione}})</span></ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content class="selectable ion-text-wrap">
+      {{newoggetto.descrizione1}}
+    </ion-card-content>
+  </ion-card>
+}
+
+
+@if (newoggetto.descrizione2 != '') {
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle><span class="gold">({{user.nomespecial}})</span></ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content class="selectable ion-text-wrap">
+      {{newoggetto.descrizione2}}
+    </ion-card-content>
+  </ion-card>
+}
+
+@if (newoggetto.descrizione3 != '') {
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle><span class="gold">({{user.descbp}})</span></ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content class="selectable ion-text-wrap">
+      {{newoggetto.descrizione3}}
+    </ion-card-content>
+  </ion-card>
+}
+
+@if (newoggetto.descrizione4 != '') {
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>PAIRED</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="selectable ion-text-wrap">
+      {{newoggetto.descrizione4}}
+    </ion-card-content>
+  </ion-card>
+}
+
+@if (newoggetto.deltamiti!=0 || newoggetto.deltasan!=0 || newoggetto.deltapf!=0) {
+  <ion-card>
+    @if (newoggetto.deltasan!=0) {
+      <ion-card-header>
+        <ion-card-title>SAN {{newoggetto.deltasan}}</ion-card-title>
+      </ion-card-header>
+    }
+    @if (newoggetto.deltamiti!=0) {
+      <ion-card-header>
+        <ion-card-title>MITI {{newoggetto.deltamiti}}</ion-card-title>
+      </ion-card-header>
+    }
+    @if (newoggetto.deltapf!=0) {
+      <ion-card-header>
+        <ion-card-title>PF {{newoggetto.deltapf}}</ion-card-title>
+      </ion-card-header>
+    }
+  </ion-card>
+}
+
+
+
+@if (newoggetto.domanda != '') {
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>DOMANDA</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{newoggetto.domanda}}
+    </ion-card-content>
+    <ion-row>
+      @if (flagno !== 1) {
+        <ion-col class="alc">
+          <ion-button  color="danger" (click)="RispSI()" [disabled]="flagsi === 1">SI</ion-button>@if (flagsi === 1) {
+          <span class="selectable"> {{newoggetto.r1}}</span>
+        }
+      </ion-col>
+    }
+    @if (flagsi !== 1) {
+      <ion-col class="alc">
+        <ion-button  color="primary" (click)="RispNO()" [disabled]="flagno === 1">NO</ion-button> @if (flagno === 1) {
+        <span class="selectable"> {{newoggetto.r2}}</span>
+      }
+    </ion-col>
+  }
+</ion-row>
 </ion-card>
+}
 
+@if ((newoggetto.rispmiti!=0 || newoggetto.rispsan!=0 || newoggetto.risppf!=0 )&& flagsi === 1 ) {
+  <ion-card>
+    @if (newoggetto.rispsan!=0) {
+      <ion-card-header>
+        <ion-card-title>SAN {{newoggetto.rispsan}}</ion-card-title>
+      </ion-card-header>
+    }
+    @if (newoggetto.rispmiti!=0) {
+      <ion-card-header>
+        <ion-card-title>MITI {{newoggetto.rispmiti}}</ion-card-title>
+      </ion-card-header>
+    }
+    @if (newoggetto.risppf!=0) {
+      <ion-card-header>
+        <ion-card-title>PF {{newoggetto.risppf}}</ion-card-title>
+      </ion-card-header>
+    }
+  </ion-card>
+}
 
-<ion-card *ngIf="newoggetto.descrizione2 != ''">
-  <ion-card-header>
-    <ion-card-subtitle><span class="gold">({{user.nomespecial}})</span></ion-card-subtitle>
-  </ion-card-header>
-  <ion-card-content class="selectable ion-text-wrap">
-    {{newoggetto.descrizione2}}
-  </ion-card-content>
-</ion-card>
+@if (newoggetto.richiesta != '') {
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title> {{newoggetto.richiesta}}</ion-card-title>
+    </ion-card-header>
+    <ion-row>
+      <ion-col class="alc" >
+        <ion-input placeholder="Risposta" [disabled]="rispok !== 0" [(ngModel)]="miarisposta"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      @if (rispok === 0) {
+        <ion-col class="alc">
+          <ion-button  color="primary" (click)="Risposta()" >Invia [{{NumRisposte}}/10]</ion-button>
+        </ion-col>
+      }
+    </ion-row>
+    <ion-row>
+      <ion-col class="alc" >
+        @if (rispok === 1) {
+          <span style="font-size: 1.5rem ; color: #00FF00;"> {{newoggetto.passwdok}}</span>
+        }
+        @if (rispok === 2) {
+          <span style="font-size: 1.5rem ; color: #FF0000;"> Risposta errata</span>
+        }
+      </ion-col>
+    </ion-row>
+    @if (rispok == 2 && NumRisposte < 11) {
+      <ion-row>
+        <ion-col class="alc">
+          <ion-button color="danger" (click)="riprova()">Riprova</ion-button>
+        </ion-col>
+      </ion-row>
+    }
+  </ion-card>
+}
 
-<ion-card *ngIf="newoggetto.descrizione3 != ''">
-  <ion-card-header>
-    <ion-card-subtitle><span class="gold">({{user.descbp}})</span></ion-card-subtitle>
-  </ion-card-header>
-  <ion-card-content class="selectable ion-text-wrap">
-    {{newoggetto.descrizione3}}
-  </ion-card-content>
-</ion-card>
-
-<ion-card *ngIf="newoggetto.descrizione4 != ''">
-  <ion-card-header>
-    <ion-card-title>PAIRED</ion-card-title>
-  </ion-card-header>
-  <ion-card-content class="selectable ion-text-wrap">
-    {{newoggetto.descrizione4}}
-  </ion-card-content>
-</ion-card>
-
-<ion-card *ngIf="newoggetto.deltamiti!=0 || newoggetto.deltasan!=0 || newoggetto.deltapf!=0">
-  <ion-card-header *ngIf="newoggetto.deltasan!=0">
-    <ion-card-title>SAN {{newoggetto.deltasan}}</ion-card-title>
-  </ion-card-header>
-  <ion-card-header *ngIf="newoggetto.deltamiti!=0">
-    <ion-card-title>MITI {{newoggetto.deltamiti}}</ion-card-title>
-  </ion-card-header>
-  <ion-card-header *ngIf="newoggetto.deltapf!=0">
-    <ion-card-title>PF {{newoggetto.deltapf}}</ion-card-title>
-  </ion-card-header>
-</ion-card>
-
-
-
-<ion-card *ngIf="newoggetto.domanda != ''">
-  <ion-card-header>
-    <ion-card-title>DOMANDA</ion-card-title>
-  </ion-card-header>
-  <ion-card-content>
-    {{newoggetto.domanda}}
-  </ion-card-content>
+@if ((newoggetto.domanda == '' && newoggetto.richiesta == '') || flagno === 1 || flagsi === 1 || rispok !== 0) {
   <ion-row>
-    <ion-col class="alc" *ngIf="flagno !== 1">
-      <ion-button  color="danger" (click)="RispSI()" [disabled]="flagsi === 1">SI</ion-button><span *ngIf="flagsi === 1" class="selectable"> {{newoggetto.r1}}</span>
-    </ion-col>
-    <ion-col class="alc" *ngIf="flagsi !== 1">
-      <ion-button  color="primary" (click)="RispNO()" [disabled]="flagno === 1">NO</ion-button> <span *ngIf="flagno === 1" class="selectable"> {{newoggetto.r2}}</span>
-    </ion-col>
-  </ion-row>
-</ion-card>
-
-<ion-card *ngIf="(newoggetto.rispmiti!=0 || newoggetto.rispsan!=0 || newoggetto.risppf!=0 )&& flagsi === 1 ">
-  <ion-card-header *ngIf="newoggetto.rispsan!=0">
-    <ion-card-title>SAN {{newoggetto.rispsan}}</ion-card-title>
-  </ion-card-header>
-  <ion-card-header *ngIf="newoggetto.rispmiti!=0">
-    <ion-card-title>MITI {{newoggetto.rispmiti}}</ion-card-title>
-  </ion-card-header>
-  <ion-card-header *ngIf="newoggetto.risppf!=0">
-    <ion-card-title>PF {{newoggetto.risppf}}</ion-card-title>
-  </ion-card-header>
-</ion-card>
-
-<ion-card *ngIf="newoggetto.richiesta != ''">
-  <ion-card-header>
-    <ion-card-title> {{newoggetto.richiesta}}</ion-card-title>
-  </ion-card-header>
-
-  <ion-row>
-    <ion-col class="alc" >
-      <ion-input placeholder="Risposta" [disabled]="rispok !== 0" [(ngModel)]="miarisposta"></ion-input>
-    </ion-col>
-  </ion-row>
-  <ion-row >
-    <ion-col class="alc" *ngIf="rispok === 0">
-      <ion-button  color="primary" (click)="Risposta()" >Invia [{{NumRisposte}}/10]</ion-button>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col class="alc" >
-      <span *ngIf="rispok === 1" style="font-size: 1.5rem ; color: #00FF00;"> {{newoggetto.passwdok}}</span>
-      <span *ngIf="rispok === 2" style="font-size: 1.5rem ; color: #FF0000;"> Risposta errata</span>
-    </ion-col>
-  </ion-row>
-  <ion-row *ngIf="rispok == 2 && NumRisposte < 11">
     <ion-col class="alc">
-      <ion-button color="danger" (click)="riprova()">Riprova</ion-button>
+      <ion-button color="primary" (click)="dismiss()">Chiudi</ion-button>
     </ion-col>
-</ion-row>
-</ion-card>
-
-<ion-row *ngIf="(newoggetto.domanda == '' && newoggetto.richiesta == '') || flagno === 1 || flagsi === 1 || rispok !== 0">
-<ion-col class="alc">
-  <ion-button color="primary" (click)="dismiss()">Chiudi</ion-button>
-</ion-col>
-</ion-row>
+  </ion-row>
+}
 
 

@@ -22,7 +22,7 @@
       <ion-col size="6" offset="1">
         <ion-card>
           <div style="text-align: center;">
-          <img src="https://www.roma-by-night.it/Castello/assets/{{user.URLimg}}" style="max-width: 75%;">
+            <img src="https://www.roma-by-night.it/Castello/assets/{{user.URLimg}}" style="max-width: 75%;">
           </div>
           <ion-card-header>
             <ion-card-subtitle>Nome</ion-card-subtitle>
@@ -38,24 +38,24 @@
           <ion-row >
             <ion-col>
               <ion-item>
-              <ion-label>San</ion-label>
-              <ion-badge >{{user.Sanita}}</ion-badge>
-            </ion-item>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-item>
-              <ion-label>Miti</ion-label>
-              <ion-badge >{{user.Miti}}</ion-badge>
+                <ion-label>San</ion-label>
+                <ion-badge >{{user.Sanita}}</ion-badge>
               </ion-item>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col>
               <ion-item>
-              <ion-label>PF</ion-label>
-              <ion-badge >{{user.PF}}</ion-badge>
+                <ion-label>Miti</ion-label>
+                <ion-badge >{{user.Miti}}</ion-badge>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>PF</ion-label>
+                <ion-badge >{{user.PF}}</ion-badge>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -72,12 +72,16 @@
             <ion-card-subtitle>( {{user.nomeprofessione}} )</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
-            <span *ngIf="user.IDspecial != 17 "> {{user.bonus}}</span>
-            <span *ngIf="user.IDspecial == 17 ">{{user.xbonus}}</span>
+            @if (user.IDspecial != 17 ) {
+              <span> {{user.bonus}}</span>
+            }
+            @if (user.IDspecial == 17 ) {
+              <span>{{user.xbonus}}</span>
+            }
           </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
- 
+
   </ion-grid>
 </ion-content>
