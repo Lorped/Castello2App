@@ -6,9 +6,10 @@ import { Oggetto, Status, User , DescOggetto} from '../global';
 
 
 @Component({
-  selector: 'app-oggetto',
-  templateUrl: './oggetto.component.html',
-  styleUrls: ['./oggetto.component.scss'],
+    selector: 'app-oggetto',
+    templateUrl: './oggetto.component.html',
+    styleUrls: ['./oggetto.component.scss'],
+    standalone: false
 })
 export class OggettoComponent  implements OnInit {
 

@@ -14,9 +14,10 @@ export class DescMagia  {
 }
 
 @Component({
-  selector: 'app-magia',
-  templateUrl: './magia.component.html',
-  styleUrls: ['./magia.component.scss'],
+    selector: 'app-magia',
+    templateUrl: './magia.component.html',
+    styleUrls: ['./magia.component.scss'],
+    standalone: false
 })
 export class MagiaComponent  implements OnInit {
 
