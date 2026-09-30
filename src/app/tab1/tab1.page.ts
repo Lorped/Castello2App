@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject, DestroyRef  } from '@angular/core';
 import { User } from '../global';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 
@@ -7,14 +8,20 @@ import { UserService } from '../user.service';
     selector: 'app-tab1',
     templateUrl: 'tab1.page.html',
     styleUrls: ['tab1.page.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class Tab1Page implements OnInit {
-
+  private destroyRef = inject(DestroyRef);
   img = '';
 
-  constructor(public user: User, public router: Router, public userservice: UserService) { }
+  constructor(public user: User, public router: Router, public userservice: UserService, private changeDetectorRef: ChangeDetectorRef) { 
+
+
+    this.user.punteggiAggiornati
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.changeDetectorRef.markForCheck());
+  
+  }
 
   ngOnInit() {
     //console.log("user tab1", this.user);
@@ -46,6 +53,7 @@ export class Tab1Page implements OnInit {
         this.user.Sanita = Number(data.Sanita);
         this.user.Miti = Number(data.Miti);
         this.user.PF = Number(data.PF);
+        this.changeDetectorRef.markForCheck();
       }
     );
   }

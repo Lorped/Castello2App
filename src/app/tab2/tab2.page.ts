@@ -1,16 +1,15 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef, Component,  } from '@angular/core';
 import { Barcode, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
-import { AlertController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular/lazy';
 import { Oggetto, Status, User } from '../global';
 
 @Component({
     selector: 'app-tab2',
     templateUrl: 'tab2.page.html',
     styleUrls: ['tab2.page.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
-export class Tab2Page implements OnInit{
+export class Tab2Page {
 
   
 
@@ -18,18 +17,18 @@ export class Tab2Page implements OnInit{
   public barcodes: Barcode[] = [];
   public isPermissionGranted = false;
 
-  constructor(public alertController: AlertController, public oggetto: Oggetto, public status: Status, public user: User) {
+  constructor(public alertController: AlertController, public oggetto: Oggetto, public status: Status, public user: User, private changeDetectorRef: ChangeDetectorRef) {
     this.initialstuff();
   }
 
-  ngOnInit(): void {
-  }
+
 
   async initialstuff(){
     const granted = await this.requestPermissions();
     if (!granted) {
       this.presentAlert();
     }
+    this.changeDetectorRef.markForCheck();
     
     let { available } = await BarcodeScanner.isGoogleBarcodeScannerModuleAvailable();
  
@@ -39,6 +38,7 @@ export class Tab2Page implements OnInit{
     } else {
       // alert("debug: module available");
     }
+    this.changeDetectorRef.markForCheck();
     
   }
 
@@ -83,6 +83,7 @@ export class Tab2Page implements OnInit{
 
     const { barcodes } = await BarcodeScanner.scan();
     this.barcodes.push(...barcodes);
+    this.changeDetectorRef.markForCheck();
 
 
     this.oggetto.id=this.barcodes[0].rawValue;
@@ -97,6 +98,7 @@ export class Tab2Page implements OnInit{
       this.status.magie = false ;
       this.status.generico = true;
     }
+    this.changeDetectorRef.markForCheck();
  
   }
 

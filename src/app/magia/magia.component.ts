@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { UserService } from '../user.service';
 import { Oggetto, Status, User } from '../global';
 
@@ -17,7 +17,6 @@ export class DescMagia  {
     selector: 'app-magia',
     templateUrl: './magia.component.html',
     styleUrls: ['./magia.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class MagiaComponent  implements OnInit {
@@ -30,7 +29,7 @@ export class MagiaComponent  implements OnInit {
 
   myMagia = new DescMagia();
 
-  constructor(public userservice: UserService, public oggetto: Oggetto, public user: User, public status: Status) { }
+  constructor(public userservice: UserService, public oggetto: Oggetto, public user: User, public status: Status, private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.disabled = false;
@@ -52,6 +51,7 @@ export class MagiaComponent  implements OnInit {
           this.outputSAN = this.myMagia.deltasan.toString();
         }
 
+        this.changeDetectorRef.markForCheck();
         
       }
     );
@@ -76,6 +76,8 @@ export class MagiaComponent  implements OnInit {
 
         alert ('Magia Lanciata!');
         this.disabled = true;
+        this.user.punteggiAggiornati.next();
+        this.changeDetectorRef.markForCheck();
 
       });
     

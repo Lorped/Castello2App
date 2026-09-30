@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-
+import { Subject } from 'rxjs';
 @Injectable()
 export class User {
     public IDutente: number;
@@ -24,6 +24,7 @@ export class User {
     public xspecpg: number;
     public IDspecialx: number ;  //uguale xspecpg
     public xbonus: string;
+     public readonly punteggiAggiornati = new Subject<void>();
 
     constructor (){
         this.IDutente = 0;

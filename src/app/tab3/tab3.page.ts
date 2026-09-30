@@ -1,13 +1,12 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef, Component,  } from '@angular/core';
 import { Scan, User , Messaggio} from '../global';
 import { UserService } from '../user.service';
-import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+import { Browser } from '@capacitor/browser';
 
 @Component({
     selector: 'app-tab3',
     templateUrl: 'tab3.page.html',
     styleUrls: ['tab3.page.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class Tab3Page {
@@ -16,7 +15,7 @@ export class Tab3Page {
   messaggi: Array<Messaggio> = [];
   timeline: Array<{ tipo: 'scan', data: string, timestamp: number, scan: Scan } | { tipo: 'messaggio', data: string, timestamp: number, messaggio: Messaggio }> = [];
 
-  constructor(public user: User, public userservice: UserService, private iab: InAppBrowser,) {}
+  constructor(public user: User, public userservice: UserService,  private changeDetectorRef: ChangeDetectorRef) {}
 
 
   ionViewWillEnter () {
@@ -34,12 +33,16 @@ export class Tab3Page {
         ...this.scanlist.map(scan => ({ tipo: 'scan' as const, data: scan.datascan, timestamp: Number(scan.timestamp), scan })),
         ...this.messaggi.map(messaggio => ({ tipo: 'messaggio' as const, data: messaggio.data, timestamp: Number(messaggio.timestamp), messaggio })),
       ].sort((a, b) => b.timestamp - a.timestamp);
+      this.changeDetectorRef.markForCheck();
       //console.log(this.scanlist);
     });
   }
 
-  openMessaggio(url: string) {
+  async openMessaggio(url: string) {
     // Implementa la logica per aprire il messaggio
-    this.iab.create(url,'_system');
+      await Browser.open({ 
+        url: url,
+        windowName: '_system'
+      });
   }
 }

@@ -7,7 +7,7 @@
   </ion-card-content>
 </ion-card>
 
-@if (newoggetto.descrizione1 != '') {
+@if (newoggetto.descrizione1 !== '') {
   <ion-card>
     <ion-card-header>
       <ion-card-subtitle><span class="gold">({{user.nomeprofessione}})</span></ion-card-subtitle>
@@ -19,7 +19,7 @@
 }
 
 
-@if (newoggetto.descrizione2 != '') {
+@if (newoggetto.descrizione2 !== '') {
   <ion-card>
     <ion-card-header>
       <ion-card-subtitle><span class="gold">({{user.nomespecial}})</span></ion-card-subtitle>
@@ -30,7 +30,7 @@
   </ion-card>
 }
 
-@if (newoggetto.descrizione3 != '') {
+@if (newoggetto.descrizione3 !== '') {
   <ion-card>
     <ion-card-header>
       <ion-card-subtitle><span class="gold">({{user.descbp}})</span></ion-card-subtitle>
@@ -41,7 +41,7 @@
   </ion-card>
 }
 
-@if (newoggetto.descrizione4 != '') {
+@if (newoggetto.descrizione4 !== '') {
   <ion-card>
     <ion-card-header>
       <ion-card-title>PAIRED</ion-card-title>
@@ -52,19 +52,19 @@
   </ion-card>
 }
 
-@if (newoggetto.deltamiti!=0 || newoggetto.deltasan!=0 || newoggetto.deltapf!=0) {
+@if (newoggetto.deltamiti!==0 || newoggetto.deltasan!==0 || newoggetto.deltapf!==0) {
   <ion-card>
-    @if (newoggetto.deltasan!=0) {
+    @if (newoggetto.deltasan!==0) {
       <ion-card-header>
         <ion-card-title>SAN {{newoggetto.deltasan}}</ion-card-title>
       </ion-card-header>
     }
-    @if (newoggetto.deltamiti!=0) {
+    @if (newoggetto.deltamiti!==0) {
       <ion-card-header>
         <ion-card-title>MITI {{newoggetto.deltamiti}}</ion-card-title>
       </ion-card-header>
     }
-    @if (newoggetto.deltapf!=0) {
+    @if (newoggetto.deltapf!==0) {
       <ion-card-header>
         <ion-card-title>PF {{newoggetto.deltapf}}</ion-card-title>
       </ion-card-header>
@@ -101,19 +101,19 @@
 </ion-card>
 }
 
-@if ((newoggetto.rispmiti!=0 || newoggetto.rispsan!=0 || newoggetto.risppf!=0 )&& flagsi === 1 ) {
+@if ((newoggetto.rispmiti!==0 || newoggetto.rispsan!==0 || newoggetto.risppf!==0 )&& flagsi === 1 ) {
   <ion-card>
-    @if (newoggetto.rispsan!=0) {
+    @if (newoggetto.rispsan!==0) {
       <ion-card-header>
         <ion-card-title>SAN {{newoggetto.rispsan}}</ion-card-title>
       </ion-card-header>
     }
-    @if (newoggetto.rispmiti!=0) {
+    @if (newoggetto.rispmiti!==0) {
       <ion-card-header>
         <ion-card-title>MITI {{newoggetto.rispmiti}}</ion-card-title>
       </ion-card-header>
     }
-    @if (newoggetto.risppf!=0) {
+    @if (newoggetto.risppf!==0) {
       <ion-card-header>
         <ion-card-title>PF {{newoggetto.risppf}}</ion-card-title>
       </ion-card-header>
@@ -148,7 +148,7 @@
         }
       </ion-col>
     </ion-row>
-    @if (rispok == 2 && NumRisposte < 11) {
+    @if (rispok === 2 && NumRisposte < 11) {
       <ion-row>
         <ion-col class="alc">
           <ion-button color="danger" (click)="riprova()">Riprova</ion-button>
