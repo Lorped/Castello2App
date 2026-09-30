@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular/lazy';
+import { provideIonicAngular } from '@ionic/angular';
 
 import { OggettoComponent } from './oggetto.component';
 
@@ -9,9 +9,9 @@ describe('OggettoComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ OggettoComponent ],
-      imports: [IonicModule.forRoot()]
-    }).compileComponents();
+    imports: [OggettoComponent],
+    providers: [provideIonicAngular()]
+}).compileComponents();
 
     fixture = TestBed.createComponent(OggettoComponent);
     component = fixture.componentInstance;

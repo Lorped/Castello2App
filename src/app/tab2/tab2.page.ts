@@ -1,13 +1,40 @@
 import { ChangeDetectorRef, Component,  } from '@angular/core';
 import { Barcode, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
-import { AlertController } from '@ionic/angular/lazy';
+import {
+  AlertController,
+  IonButton,
+  IonCard,
+  IonCardSubtitle,
+  IonCardTitle,
+  IonCol,
+  IonContent,
+  IonHeader,
+  IonRow,
+  IonTitle,
+  IonToolbar,
+} from '@ionic/angular';
 import { Oggetto, Status, User } from '../global';
+import { OggettoComponent } from '../oggetto/oggetto.component';
+import { MagiaComponent } from '../magia/magia.component';
 
 @Component({
     selector: 'app-tab2',
     templateUrl: 'tab2.page.html',
     styleUrls: ['tab2.page.scss'],
-    standalone: false
+    imports: [
+      IonButton,
+      IonCard,
+      IonCardSubtitle,
+      IonCardTitle,
+      IonCol,
+      IonContent,
+      IonHeader,
+      IonRow,
+      IonTitle,
+      IonToolbar,
+      OggettoComponent,
+      MagiaComponent,
+    ]
 })
 export class Tab2Page {
 

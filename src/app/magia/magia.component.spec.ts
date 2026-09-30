@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular/lazy';
+import { provideIonicAngular } from '@ionic/angular';
 
 import { MagiaComponent } from './magia.component';
 
@@ -9,9 +9,9 @@ describe('MagiaComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MagiaComponent ],
-      imports: [IonicModule.forRoot()]
-    }).compileComponents();
+    imports: [MagiaComponent],
+    providers: [provideIonicAngular()]
+}).compileComponents();
 
     fixture = TestBed.createComponent(MagiaComponent);
     component = fixture.componentInstance;

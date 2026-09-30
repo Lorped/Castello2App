@@ -2,12 +2,35 @@ import { ChangeDetectorRef, Component,  } from '@angular/core';
 import { Scan, User , Messaggio} from '../global';
 import { UserService } from '../user.service';
 import { Browser } from '@capacitor/browser';
+import {
+  IonButton,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+} from '@ionic/angular';
 
 @Component({
     selector: 'app-tab3',
     templateUrl: 'tab3.page.html',
     styleUrls: ['tab3.page.scss'],
-    standalone: false
+    imports: [
+      IonButton,
+      IonCard,
+      IonCardContent,
+      IonCardHeader,
+      IonCardSubtitle,
+      IonCardTitle,
+      IonContent,
+      IonHeader,
+      IonTitle,
+      IonToolbar,
+    ]
 })
 export class Tab3Page {
 

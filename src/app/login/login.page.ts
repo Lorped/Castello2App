@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Status, User } from '../global';
 import { Router } from '@angular/router';
 
@@ -14,13 +14,40 @@ import {
   Token,
 } from '@capacitor/push-notifications';
 import { HttpClient } from '@angular/common/http';
+import {
+  IonButton,
+  IonCheckbox,
+  IonCol,
+  IonContent,
+  IonHeader,
+  IonInput,
+  IonInputPasswordToggle,
+  IonItem,
+  IonRow,
+  IonTitle,
+  IonToolbar,
+} from '@ionic/angular';
 
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.page.html',
     styleUrls: ['./login.page.scss'],
-    standalone: false
+    imports: [
+      FormsModule,
+      ReactiveFormsModule,
+      IonButton,
+      IonCheckbox,
+      IonCol,
+      IonContent,
+      IonHeader,
+      IonInput,
+      IonInputPasswordToggle,
+      IonItem,
+      IonRow,
+      IonTitle,
+      IonToolbar,
+    ]
 })
 export class LoginPage implements OnInit {
       

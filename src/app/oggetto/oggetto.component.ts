@@ -1,6 +1,18 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { Oggetto, Status, User , DescOggetto} from '../global';
+import { FormsModule } from '@angular/forms';
+import {
+  IonButton,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
+  IonCol,
+  IonInput,
+  IonRow,
+} from '@ionic/angular';
 
 
 
@@ -9,7 +21,18 @@ import { Oggetto, Status, User , DescOggetto} from '../global';
     selector: 'app-oggetto',
     templateUrl: './oggetto.component.html',
     styleUrls: ['./oggetto.component.scss'],
-    standalone: false
+    imports: [
+      FormsModule,
+      IonButton,
+      IonCard,
+      IonCardContent,
+      IonCardHeader,
+      IonCardSubtitle,
+      IonCardTitle,
+      IonCol,
+      IonInput,
+      IonRow,
+    ]
 })
 export class OggettoComponent  implements OnInit {
 

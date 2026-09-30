@@ -1,6 +1,15 @@
 import { ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { UserService } from '../user.service';
 import { Oggetto, Status, User } from '../global';
+import {
+  IonButton,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
+  IonCol,
+  IonRow,
+} from '@ionic/angular';
 
 export class DescMagia  {
   public nome = '';
@@ -17,7 +26,7 @@ export class DescMagia  {
     selector: 'app-magia',
     templateUrl: './magia.component.html',
     styleUrls: ['./magia.component.scss'],
-    standalone: false
+    imports: [IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonRow]
 })
 export class MagiaComponent  implements OnInit {
 

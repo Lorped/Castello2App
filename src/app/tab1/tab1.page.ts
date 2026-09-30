@@ -3,12 +3,55 @@ import { User } from '../global';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
+import {
+  IonBadge,
+  IonButton,
+  IonButtons,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonHeader,
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonRefresher,
+  IonRefresherContent,
+  IonRow,
+  IonTitle,
+  IonToolbar,
+} from '@ionic/angular';
 
 @Component({
     selector: 'app-tab1',
     templateUrl: 'tab1.page.html',
     styleUrls: ['tab1.page.scss'],
-    standalone: false
+    imports: [
+      IonBadge,
+      IonButton,
+      IonButtons,
+      IonCard,
+      IonCardContent,
+      IonCardHeader,
+      IonCardSubtitle,
+      IonCardTitle,
+      IonCol,
+      IonContent,
+      IonGrid,
+      IonHeader,
+      IonIcon,
+      IonItem,
+      IonLabel,
+      IonRefresher,
+      IonRefresherContent,
+      IonRow,
+      IonTitle,
+      IonToolbar,
+    ]
 })
 export class Tab1Page implements OnInit {
   private destroyRef = inject(DestroyRef);
