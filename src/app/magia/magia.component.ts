@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { UserService } from '../user.service';
 import { Oggetto, Status, User } from '../global';
 
@@ -17,6 +17,7 @@ export class DescMagia  {
     selector: 'app-magia',
     templateUrl: './magia.component.html',
     styleUrls: ['./magia.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class MagiaComponent  implements OnInit {

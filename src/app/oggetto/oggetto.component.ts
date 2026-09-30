@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { UserService } from '../user.service';
 import { Oggetto, Status, User , DescOggetto} from '../global';
 
@@ -9,6 +9,7 @@ import { Oggetto, Status, User , DescOggetto} from '../global';
     selector: 'app-oggetto',
     templateUrl: './oggetto.component.html',
     styleUrls: ['./oggetto.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class OggettoComponent  implements OnInit {

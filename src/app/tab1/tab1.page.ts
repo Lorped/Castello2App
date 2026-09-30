@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { User } from '../global';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
@@ -7,6 +7,7 @@ import { UserService } from '../user.service';
     selector: 'app-tab1',
     templateUrl: 'tab1.page.html',
     styleUrls: ['tab1.page.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class Tab1Page implements OnInit {

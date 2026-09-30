@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { UserService } from '../user.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Status, User } from '../global';
@@ -20,6 +20,7 @@ import { HttpClient } from '@angular/common/http';
     selector: 'app-login',
     templateUrl: './login.page.html',
     styleUrls: ['./login.page.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class LoginPage implements OnInit {

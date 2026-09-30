@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Scan, User , Messaggio} from '../global';
 import { UserService } from '../user.service';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
@@ -7,6 +7,7 @@ import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
     selector: 'app-tab3',
     templateUrl: 'tab3.page.html',
     styleUrls: ['tab3.page.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class Tab3Page {

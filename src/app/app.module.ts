@@ -13,7 +13,7 @@ import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
 import { User, Oggetto, Status } from './global';
 
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 
 
@@ -30,7 +30,7 @@ import { provideHttpClient } from '@angular/common/http';
     User,
     Oggetto,
     Status,
-    provideHttpClient(),
+    provideHttpClient(withXhr()),
     InAppBrowser
   ],
   bootstrap: [AppComponent],

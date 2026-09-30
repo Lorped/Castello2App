@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Barcode, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
 import { AlertController } from '@ionic/angular';
 import { Oggetto, Status, User } from '../global';
@@ -7,6 +7,7 @@ import { Oggetto, Status, User } from '../global';
     selector: 'app-tab2',
     templateUrl: 'tab2.page.html',
     styleUrls: ['tab2.page.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class Tab2Page implements OnInit{
